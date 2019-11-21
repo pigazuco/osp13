@@ -1,0 +1,20 @@
+---
+- name: Rollback
+  hosts: srv1.mad.lab
+  gather_facts: no
+  vars_prompt:
+    - name: "rollback"
+      prompt: "01-empty"
+      default: "01"
+      private: no
+  tasks:
+    - name: rollback
+      command: "{{item}}"
+      with_items:
+        - virsh snapshot-revert --snapshotname {{rollback}} --domain rh-osp13-controller
+        - virsh snapshot-revert --snapshotname {{rollback}} --domain rh-osp13-compute1
+        - virsh snapshot-revert --snapshotname {{rollback}} --domain rh-osp13-compute2
+        - virsh start rh-osp13-controller
+        - virsh start rh-osp13-compute1
+        - virsh start rh-osp13-compute2
+
