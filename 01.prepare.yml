@@ -35,15 +35,17 @@
       copy:
         src: /usr/share/kolla-ansible/etc_examples/kolla/globals.yml
         dest: /etc/kolla/globals.yml
-        remote_src: yes  
+        remote_src: yes
     - name: Copy passwords.yml
       copy:
         src: /usr/share/kolla-ansible/etc_examples/kolla/passwords.yml
         dest: /etc/kolla
+        remote_src: yes
     - name: Copy passwords.yml
       copy:
         src: /usr/share/kolla-ansible/ansible/inventory/ .
         dest: /root/
+        remote_src: yes
     - name: Configure globals
       command: "{{item}}"
       with_items:
