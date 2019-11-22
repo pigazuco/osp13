@@ -13,6 +13,10 @@
       get_url:
         url: http://registry.mad.lab/local.repo
         dest: /etc/yum.repos.d/local.repo
+- name: Install packages
+  hosts: rh-osp13-controller
+  gather_facts: no
+  tasks:
     - name: Install Packages
       yum:
         state: present
