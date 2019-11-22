@@ -13,3 +13,8 @@
       get_url:
         url: http://registry.mad.lab/local.repo
         dest: /etc/yum.repos.d/local.repo
+    - name: Install Packages
+      yum:
+        state: present
+        name:
+          - git
