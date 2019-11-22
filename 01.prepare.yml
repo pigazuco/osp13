@@ -1,0 +1,33 @@
+---
+- name: Prepare
+  hosts: osp13-all
+  gather_facts: no
+  tasks:
+    - name: Disabling SE linux
+      command: setenforce 0
+    - name: Disabling SE linux permanent
+      command: sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+    - name: Disable subscription
+      command: sed -i "s/enabled\=aa/enabled\=0/g" /etc/yum/pluginconf.d/subscription-manager.conf
+    - name: Enable local repo
+      get_url:
+        url: http://registry.mad.lab/local.repo
+        dest: /etc/yum.repos.d/local.repo
+    - name: Install Packages
+      yum:
+        state: present
+        name:
+          - net-tools
+          - tcpdump
+          - wget
+          - nfs-utils
+          - yum-utils
+          - tcpdump
+          - pyOpenSSL
+          - python-jinja2
+          - python-requests
+          - python-setuptools
+          - PyYAML
+          - python-ipaddr
+          - device-mapper-persistent-data
+          - lvm2
