@@ -31,10 +31,11 @@
         - pip install ansible kolla-ansible
         - sudo mkdir -p /etc/kolla
         - sudo chown $USER:$USER /etc/kolla
+        - cp /usr/share/kolla-ansible/etc_examples/kolla/globals.yml
     - name: Copy globals
       copy:
         src: /usr/share/kolla-ansible/etc_examples/kolla/globals.yml
-        dest: /etc/kolla
+        dest: /etc/kolla/globals.yml
     - name: Copy passwords.yml
       copy:
         src: /usr/share/kolla-ansible/etc_examples/kolla/passwords.yml
@@ -45,7 +46,7 @@
         dest: /root/
     - name: Configure globals
       command: "{{item}}"
-      with_items:        
+      with_items:
         - sed -i 's/^neutron_external_interface.*/neutron_external_interface: \"eth1\"/g' globals.yml
         - kolla-genpwd
         - sed -i 's/^#kolla_base_distro.*/kolla_base_distro\:\ \"centos\"/g' globals.yml
