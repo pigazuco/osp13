@@ -56,6 +56,6 @@
     - name: Configure /etc/ansible/ansible.cfg
       lineinfile:
         path: /etc/ansible/ansible.cfg
-        line: host_key_checking=False
-        line: pipelining=True
-        line: forks=100
+        line: host_key_checking = False
+        line: pipelining = True
+        line: forks = 100
