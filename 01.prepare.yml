@@ -31,9 +31,21 @@
         - pip install ansible kolla-ansible
         - sudo mkdir -p /etc/kolla
         - sudo chown $USER:$USER /etc/kolla
-        - cp -r  /usr/share/kolla-ansible/etc_examples/kolla/* /etc/kolla
-        - cp /usr/share/kolla-ansible/ansible/inventory/* .
-        - sed -i 's/^network_interface.*/network_interface: \"eth0\"/g' globals.yml
+    - name: Copy globals
+      copy:
+        src: /usr/share/kolla-ansible/etc_examples/kolla/globals.yml
+        dest: /etc/kolla
+    - name: Copy passwords.yml
+      copy:
+        src: /usr/share/kolla-ansible/etc_examples/kolla/passwords.yml
+        dest: /etc/kolla
+    - name: Copy passwords.yml
+      copy:
+        src: /usr/share/kolla-ansible/ansible/inventory/ .
+        dest: /root/
+    - name: Configure globals
+      command: "{{item}}"
+      with_items:        
         - sed -i 's/^neutron_external_interface.*/neutron_external_interface: \"eth1\"/g' globals.yml
         - kolla-genpwd
         - sed -i 's/^#kolla_base_distro.*/kolla_base_distro\:\ \"centos\"/g' globals.yml
