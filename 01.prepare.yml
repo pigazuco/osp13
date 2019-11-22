@@ -47,6 +47,6 @@
         dest: /root/
         remote_src: yes
     - name: Configure /etc/kolla/globals.yml
-        lineinfile:
-          path: /etc/kolla/globals.yml
-          line: kolla_base_distro = "centos"
+      lineinfile:
+        path: /etc/kolla/globals.yml
+        line: kolla_base_distro = "centos"
