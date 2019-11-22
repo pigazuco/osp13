@@ -31,7 +31,6 @@
         - pip install ansible kolla-ansible
         - sudo mkdir -p /etc/kolla
         - sudo chown $USER:$USER /etc/kolla
-        - cp /usr/share/kolla-ansible/etc_examples/kolla/globals.yml
     - name: Copy globals
       copy:
         src: /usr/share/kolla-ansible/etc_examples/kolla/globals.yml
