@@ -13,21 +13,3 @@
       get_url:
         url: http://registry.mad.lab/local.repo
         dest: /etc/yum.repos.d/local.repo
-    - name: Install Packages
-      yum:
-        state: present
-        name:
-          - net-tools
-          - tcpdump
-          - wget
-          - nfs-utils
-          - yum-utils
-          - tcpdump
-          - pyOpenSSL
-          - python-jinja2
-          - python-requests
-          - python-setuptools
-          - PyYAML
-          - python-ipaddr
-          - device-mapper-persistent-data
-          - lvm2
