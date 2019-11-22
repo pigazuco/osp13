@@ -48,12 +48,12 @@
     - name: Configure /etc/kolla/globals.yml
       lineinfile:
         path: /etc/kolla/globals.yml
-        line: 'kolla_base_distro: "centos"'
-        line: 'kolla_install_type : "source"'
-        line: 'openstack_release : "queens"'
-        line: 'kolla_internal_vip_address: "1.1.1.26"'
-        line: 'network_interface: "eth0"'
-        line: 'neutron_external_interface: "eth1"'
+        line: kolla_base_distro\: "centos"
+        line: kolla_install_type\: "source"
+        line: openstack_release\: "queens"
+        line: kolla_internal_vip_address\: "1.1.1.26"
+        line: network_interface\: "eth0"
+        line: neutron_external_interface\: "eth1"
         create: yes
     - name: Configure /etc/ansible/ansible.cfg
       lineinfile:
