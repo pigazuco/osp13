@@ -22,3 +22,11 @@
           - openssl-devel
           - libselinux-python
           - python-pip
+          - ansible
+    - name: Update pip
+      shell: pip install -U pip
+    - name: Install Ansible
+      yum:
+        state: present
+        name:
+          - ansible
