@@ -24,9 +24,11 @@
           - python-pip
           - ansible
     - name: Update pip
-      shell: pip install -U pip
+      command: pip install -U pip
     - name: Install Ansible
       yum:
         state: present
         name:
           - ansible
+    - name: install
+      command: pip install kolla-ansible
