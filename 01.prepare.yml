@@ -1,7 +1,7 @@
 ---
 - name: Prepare
   hosts: osp13-all
-  gather_facts: no
+  gather_facts: yes
   tasks:
     - name: Disabling SE linux
       command: setenforce 0
@@ -9,10 +9,12 @@
       command: sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
     - name: Disable subscription
       command: sed -i "s/enabled\=aa/enabled\=0/g" /etc/yum/pluginconf.d/subscription-manager.conf
+      when: (ansible_facts['distribution'] == "RedHat")
     - name: Enable local repo
       get_url:
         url: http://registry.mad.lab/local.repo
         dest: /etc/yum.repos.d/local.repo
+      when: (ansible_facts['distribution'] == "RedHat")
 - name: Install packages
   hosts: rh-osp13-controller
   gather_facts: no
@@ -27,3 +29,4 @@
           - gcc
           - openssl-devel
           - libselinux-python
+          - python-pip
