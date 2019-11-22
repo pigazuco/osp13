@@ -85,3 +85,5 @@
       command: "{{item}}"
       with_items:
         - kolla-genpwd
+    - name: DEPLOYTING Bootstrap-servers
+      command: kolla-ansible -i ./multinode bootstrap-servers
