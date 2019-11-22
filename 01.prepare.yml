@@ -87,3 +87,7 @@
         - kolla-genpwd
     - name: DEPLOYTING Bootstrap-servers
       command: kolla-ansible -i ./multinode bootstrap-servers
+    - name: DEPLOYTING Prechecks
+      command: kolla-ansible -i ./multinode prechecks
+    - name: DEPLOYTING Deploy
+      command: kolla-ansible -i ./multinode deploy
