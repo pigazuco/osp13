@@ -34,7 +34,7 @@
     - name: Copy globals
       copy:
         remote_src: /usr/share/kolla-ansible/etc_examples/kolla/globals.yml
-        dest: /etc/kolla/globals.yml
+        dest: /etc/kolla/
     - name: Copy passwords.yml
       copy:
         src: /usr/share/kolla-ansible/etc_examples/kolla/passwords.yml
