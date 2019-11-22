@@ -44,7 +44,7 @@
     - name: Copy passwords.yml
       copy:
         src: /usr/share/kolla-ansible/ansible/inventory/multinode
-        dest: /root/
+        dest: /root/multinode.yml
         remote_src: yes
     - name: Configure /etc/kolla/globals.yml
       lineinfile:
