@@ -33,7 +33,7 @@
         - sudo chown $USER:$USER /etc/kolla
     - name: Copy globals
       copy:
-        src: /usr/share/kolla-ansible/etc_examples/kolla/globals.yml
+        remote_src: /usr/share/kolla-ansible/etc_examples/kolla/globals.yml
         dest: /etc/kolla/globals.yml
     - name: Copy passwords.yml
       copy:
