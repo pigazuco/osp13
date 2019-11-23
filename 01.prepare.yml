@@ -7,11 +7,6 @@
       command: setenforce 0
     - name: Disabling SE linux permanent
       command: sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
-    - name: Disable NetworkManger
-      service:
-        - name: NetworkManger
-        - state: stopped
-        - enabled: no
 - name: Install packages
   hosts: osp13-controller
   gather_facts: no
