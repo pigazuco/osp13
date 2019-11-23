@@ -98,3 +98,4 @@
 #      command: kolla-ansible -i ./multinode.yml prechecks
 #    - name: DEPLOYTING Deploy
 #      command: kolla-ansible -i ./multinode.yml deploy
+#
