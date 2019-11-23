@@ -41,7 +41,7 @@
         src: /usr/share/kolla-ansible/etc_examples/kolla/passwords.yml
         dest: /etc/kolla
         remote_src: yes
-    - name: Copy passwords.yml
+    - name: Copy multinode.yml
       copy:
         src: multinode.yml
         dest: /root/multinode.yml
@@ -85,8 +85,8 @@
       command: "{{item}}"
       with_items:
         - kolla-genpwd
-    - name: DEPLOYTING Bootstrap-servers
-      command: kolla-ansible -i ./multinode.yml bootstrap-servers
+#    - name: DEPLOYTING Bootstrap-servers
+#      command: kolla-ansible -i ./multinode.yml bootstrap-servers
 #    - name: DEPLOYTING Prechecks
 #      command: kolla-ansible -i ./multinode.yml prechecks
 #    - name: DEPLOYTING Deploy
