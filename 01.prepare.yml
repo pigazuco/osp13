@@ -7,6 +7,11 @@
       command: setenforce 0
     - name: Disabling SE linux permanent
       command: sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+    - name: Disable NetworkManger
+      service:
+        - name: NetworkManger
+        - state: stopped
+        - enabled: no
 - name: Install packages
   hosts: osp13-controller
   gather_facts: no
@@ -22,13 +27,15 @@
           - openssl-devel
           - libselinux-python
           - python-pip
-          - ansible
+          - net-tools
+          - tcpdump
+          #- ansible
     - name: Update pip
       command: pip install -U pip
     - name: Install ansible and kolla-ansible
       command: "{{item}}"
       with_items:
-        - pip install ansible kolla-ansible
+        - pip install ansible kolla-ansible #################################
         - sudo mkdir -p /etc/kolla
         - sudo chown $USER:$USER /etc/kolla
     - name: Copy globals
