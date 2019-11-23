@@ -60,10 +60,10 @@
         path: /etc/kolla/globals.yml
         regexp: ^#openstack_release
         line: 'openstack_release: "queens"'
-    - name: Configure okolla_internal_vip_address
+    - name: Configure kolla_internal_vip_address
       lineinfile:
         path: /etc/kolla/globals.yml
-        regexp: ^#kolla_internal_vip_address
+        regexp: ^kolla_internal_vip_address
         line: 'kolla_internal_vip_address: "1.1.1.26"'
     - name: Configure network_interface
       lineinfile:
