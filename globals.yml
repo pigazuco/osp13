@@ -12,13 +12,13 @@
 #config_strategy: "COPY_ALWAYS"
 
 # Valid options are ['centos', 'debian', 'oraclelinux', 'rhel', 'ubuntu']
-#kolla_base_distro: "centos"
+kolla_base_distro: "centos"
 
 # Valid options are [ binary, source ]
-#kolla_install_type: "binary"
+kolla_install_type: "binary"
 
 # Valid option is Docker repository tag
-#openstack_release: ""
+openstack_release: "rocky"
 
 # Location of configuration overrides
 #node_custom_config: "/etc/kolla/config"
