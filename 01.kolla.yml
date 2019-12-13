@@ -83,12 +83,12 @@
 #        path: /etc/kolla/globals.yml
 #        regexp: ^#neutron_external_interface
 #        line: 'neutron_external_interface: "eth1"'
-    - name: Configure /etc/ansible/ansible.cfg
-      lineinfile:
-        path: /etc/ansible/ansible.cfg
-        line: host_key_checking = False
-        line: pipelining = True
-        line: forks = 100
+#    - name: Configure /etc/ansible/ansible.cfg
+#      lineinfile:
+#        path: /etc/ansible/ansible.cfg
+#        line: host_key_checking = False
+#        line: pipelining = True
+#        line: forks = 100
     - name: Generate passwords
       command: "{{item}}"
       with_items:
