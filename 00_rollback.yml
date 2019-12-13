@@ -4,16 +4,16 @@
   gather_facts: no
   vars_prompt:
     - name: "rollback"
-      prompt: "01-empty,02-OSP-deployed"
+      prompt: "01-empty"
       default: "01"
       private: no
   tasks:
     - name: rollback
       command: "{{item}}"
       with_items:
-        - virsh snapshot-revert --snapshotname {{rollback}} --domain osp13-controller
-        - virsh snapshot-revert --snapshotname {{rollback}} --domain osp13-compute1
-        - virsh snapshot-revert --snapshotname {{rollback}} --domain osp13-compute2
+        - virsh snapshot-revert --snapshotname {{rollback}} --domain ct-osp13-controller
+        - virsh snapshot-revert --snapshotname {{rollback}} --domain ct-osp13-compute1
+        - virsh snapshot-revert --snapshotname {{rollback}} --domain ct-osp13-compute2
         - virsh start osp13-controller
         - virsh start osp13-compute1
         - virsh start osp13-compute2
