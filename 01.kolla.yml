@@ -11,6 +11,11 @@
   hosts: osp13-controller
   gather_facts: no
   tasks:
+    - name: Enable EPEL
+      yum:
+        state: present
+        name:
+          - epel-release
     - name: Install Packages
       yum:
         state: present
