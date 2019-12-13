@@ -83,12 +83,12 @@
 #        line: host_key_checking = False
 #        line: pipelining = True
 #        line: forks = 100
-    - name: Install ansible and kolla-ansible
-      command: "{{item}}"
-      with_items:
-        - kolla-genpwd
-    - name: DEPLOYTING Bootstrap-servers
-      command: kolla-ansible -i ./multinode.yml bootstrap-servers
+#    - name: Install ansible and kolla-ansible
+#      command: "{{item}}"
+#      with_items:
+#        - kolla-genpwd
+#    - name: DEPLOYTING Bootstrap-servers
+#      command: kolla-ansible -i ./multinode.yml bootstrap-servers
 #    - name: DEPLOYTING Prechecks
 #      command: kolla-ansible -i ./multinode.yml prechecks
 #    - name: DEPLOYTING Deploy
