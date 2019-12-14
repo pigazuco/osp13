@@ -30,7 +30,7 @@
           - epel-release
           - net-tools
           - tcpdump
-          #- ansible
+          - openstack-heat
     - name: Update pip
       command: pip install -U pip
     - name: Install ansible and kolla-ansible
@@ -39,6 +39,7 @@
         - pip install ansible kolla-ansible #################################
         - sudo mkdir -p /etc/kolla
         - sudo chown $USER:$USER /etc/kolla
+        - mkdir -p /etc/kolla/config/nova
     - name: Copy globals
       copy:
         src: globals.yml
@@ -53,6 +54,10 @@
       copy:
         src: multinode.yml
         dest: /root/multinode.yml
+    - name: Copy nova-compute.conf
+      copy:
+        src: nova-compute.conf
+        dest: /etc/kolla/config/nova/nova-compute.conf
 #    - name: Configure kolla_base_distro
 #      lineinfile:
 #        path: /etc/kolla/globals.yml
@@ -97,6 +102,6 @@
       command: kolla-ansible -i ./multinode.yml bootstrap-servers
     - name: DEPLOYTING Prechecks
       command: kolla-ansible -i ./multinode.yml prechecks
-#    - name: DEPLOYTING Deploy
-#      command: kolla-ansible -i ./multinode.yml deploy
+    - name: DEPLOYTING Deploy
+      command: kolla-ansible -i ./multinode.yml deploy
 #
