@@ -30,7 +30,6 @@
           - epel-release
           - net-tools
           - tcpdump
-          - openstack-heat
     - name: Update pip
       command: pip install -U pip
     - name: Install ansible and kolla-ansible
