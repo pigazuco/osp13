@@ -1,7 +1,4 @@
 311aedbaaaed        kolla/centos-source-horizon:queens                     "kolla_start"       4 days ago          Up 7 minutes                            horizon
-f740935645e5        kolla/centos-source-heat-engine:queens                 "kolla_start"       4 days ago          Up 5 minutes                            heat_engine
-7b10477c2ce4        kolla/centos-source-heat-api-cfn:queens                "kolla_start"       4 days ago          Up 4 minutes                            heat_api_cfn
-ec33885300ab        kolla/centos-source-heat-api:queens                    "kolla_start"       4 days ago          Up 7 minutes                            heat_api
 438fa37dbd06        kolla/centos-source-neutron-metadata-agent:queens      "kolla_start"       4 days ago          Up 7 minutes                            neutron_metadata_agent
 3d34ebc3d793        kolla/centos-source-neutron-l3-agent:queens            "kolla_start"       4 days ago          Up 4 minutes                            neutron_l3_agent
 6a17c527d0f7        kolla/centos-source-neutron-dhcp-agent:queens          "kolla_start"       4 days ago          Up 4 minutes                            neutron_dhcp_agent
