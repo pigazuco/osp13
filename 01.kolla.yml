@@ -60,8 +60,8 @@
         dest: /root/multinode.yml
     - name: Copy all-in-one.yml
       copy:
-        src: ll-in-one.yml
-        dest: /root/ll-in-one.yml
+        src: all-in-one.yml
+        dest: /root/all-in-one.yml
     - name: Copy nova-compute.conf
       copy:
         src: nova-compute.conf
