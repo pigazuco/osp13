@@ -4,5 +4,4 @@
   gather_facts: no
   tasks:
     - name: Upload Cerros Image
-      command: "{{item}}"
-        - glance image-create --name cirros --disk-format qcow2 --container-format bare --visibility public --file cirros-0.4.0-x86_64-disk.img
+      command: glance image-create --name cirros --disk-format qcow2 --container-format bare --visibility public --file cirros-0.4.0-x86_64-disk.img
