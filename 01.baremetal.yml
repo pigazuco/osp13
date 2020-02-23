@@ -1,36 +1,9 @@
 ---
-
-- name: Disable services
-  hosts: osp13-all
+- name: Upload Cerros Image
+  hosts: osp13-undercloud
   gather_facts: no
   tasks:
-    - name: Stop and disable firewalld.
-         service:
-           name: firewalld
-           state: stopped
-           enabled: False
-    - name: Stop and disable NetworkManager.
-         service:
-           name: NetworkManager
-           state: stopped
-           enabled: False
-- name: Deploy overcloud
-  hosts: osp10-undercloud.mad.lab
-  gather_facts: no
-  tasks:
-    - name: Install Packages
-      yum:
-        state: present
-        name:
-          - centos-release-openstack-queens
-          - openstack-packstack
-          - python-setuptools
-    - name: get config_packstack.cfg
-      copy:
-        src: /root/director/config_packstack.cfg
-        dest: /root/config_packstack.cfg
-#    - name: deploy
-#      remote_user: stack
-#      command: openstack overcloud deploy --templates --control-scale 1 --compute-scale 2  --ntp-server 1.255.0.1 --neutron-network-type vxlan --neutron-tunnel-types vxlan
-#      register: logdata
-#    - debug: msg="{{ logdata.stdout }}"
+    - name: Upload Cerros Image
+      command: "{{item}}"
+      with_items:
+        - glance image-create --name cirros --disk-format qcow2 --container-format bare --visibility public --file cirros-0.4.0-x86_64-disk.img
