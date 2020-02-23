@@ -1,6 +1,6 @@
 ---
-- name: Rollback
-  hosts: srv1.mad.lab
+- name: Deploy project
+  hosts: osp13-undercloud
   gather_facts: no
   vars_prompt:
     - name: "project-name"
@@ -8,7 +8,7 @@
       default: "CISCO"
       private: no
   tasks:
-    - name: rollback
+    - name: Deploy project
       command: "{{item}}"
       with_items:
         - openstack project create --description {{project-name}} {{project-name}}
