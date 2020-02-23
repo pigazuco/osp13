@@ -3,5 +3,6 @@
   hosts: osp13-undercloud
   gather_facts: no
   tasks:
-    - name: Upload Cerros Image
-      command: glance image-create --name cirros --disk-format qcow2 --container-format bare --visibility public --file cirros-0.4.0-x86_64-disk.img
+    - name: Create flavor
+      command: openstack flavor create --id auto --ram 64 --vcpus 1 --public small
+
