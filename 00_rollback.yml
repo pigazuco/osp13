@@ -3,9 +3,9 @@
   hosts: srv1.mad.lab
   gather_facts: no
   vars_prompt:
-    - name: "rollback"
-      prompt: "01-empty"
-      default: "01"
+    - name: "project-name"
+      prompt: "CISCO"
+      default: "CISCO"
       private: no
   tasks:
     - name: rollback
