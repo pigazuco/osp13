@@ -13,13 +13,16 @@
       with_items:
         - "openstack project create --description {{project}} {{project}}"
         - "openstack role add --user admin --project {{project}} admin"
+        - "export OS_PROJECT_NAME={{project}}"
         - "openstack network create {{project}}-NET10 --project {{project}}"
         - "openstack subnet create --network {{project}}-NET10 --project {{project}} --subnet-range 10.0.0.0/24 {{project}}-SUBNET10"
         - "openstack router create {{project}}-ROUTER --project {{project}}"
-        - "openstack router add subnet {{project}}-ROUTER {{project}}-SUBNET10 --project {{project}}"
+        - "openstack router add subnet {{project}}-ROUTER {{project}}-SUBNET10"
         - "openstack security group create {{project}}-SECURITY-GROUP --project {{project}}"
         - "openstack security group rule create --proto tcp --dst-port 22 {{project}}-SECURITY-GROUP --project {{project}}"
         - "openstack security group rule create --proto icmp {{project}}-SECURITY-GROUP --project {{project}}"
-        - "openstack server create --security-group {{project}}-SECURITY-GROUP --flavor small --image cirros --nic net-id={{project}}-NET10 {{project}}-1 --project {{project}}"
-        - "openstack server create --security-group {{project}}-SECURITY-GROUP --flavor small --image cirros --nic net-id={{project}}-NET10 {{project}}-2 --project {{project}}"
-        - "neutron router-gateway-set {{project}}-ROUTER L3OUT_AIBARRIO --project {{project}}"
+        - "openstack server create --security-group {{project}}-SECURITY-GROUP --flavor small --image cirros --nic net-id={{project}}-NET10 {{project}}-1"
+        - "openstack server create --security-group {{project}}-SECURITY-GROUP --flavor small --image cirros --nic net-id={{project}}-NET10 {{project}}-2"
+        - "openstack router set --external-gateway L3OUT_AIBARRIO  {{project}}-ROUTER"
+#openstack floating ip create L3OUT_AIBARRIO
+#openstack server add floating ip <server> <ip>
