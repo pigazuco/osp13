@@ -13,5 +13,4 @@
     - name: Delete project
       command: "{{item}}"
       with_items:
-        - "export OS_PROJECT_NAME=TEST"
         - "openstack network create TEST"
