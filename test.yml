@@ -1,0 +1,17 @@
+---
+- name: Delete project
+  hosts: osp13-undercloud
+  gather_facts: no
+  environment:
+    OS_PROJECT_NAME: TEST
+  vars_prompt:
+    - name: "project"
+      prompt: "TEST"
+      default: "TEST"
+      private: no
+  tasks:
+    - name: Delete project
+      command: "{{item}}"
+      with_items:
+        - "export OS_PROJECT_NAME=TEST"
+        - "openstack network create TEST"
