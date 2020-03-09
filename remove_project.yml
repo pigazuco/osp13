@@ -7,6 +7,8 @@
       prompt: "CISCO"
       default: "CISCO"
       private: no
+  environment:
+    OS_PROJECT_NAME: {{project}}
   tasks:
     - name: Delete project
       command: "{{item}}"
