@@ -11,6 +11,7 @@
     - name: Delete project
       command: "{{item}}"
       with_items:
+        - "export OS_PROJECT_NAME={{project}}"
         - "openstack server delete {{project}}-1"
         - "openstack server delete {{project}}-2"
         - "openstack security group rule delete --proto tcp --dst-port 22 {{project}}-SECURITY-GROUP"
