@@ -1,0 +1,8 @@
+parameter_defaults:
+   DockerHorizonImage: 192.168.24.1:8787/rhosp13/openstack-horizon-ciscoaci:1581099481 
+   DockerCiscoAciAimImage: 192.168.24.1:8787/rhosp13/openstack-ciscoaci-aim:1581099481 
+   DockerOpflexAgentImage: 192.168.24.1:8787/rhosp13/openstack-ciscoaci-opflex:1581099481 
+   DockerNeutronApiImage: 192.168.24.1:8787/rhosp13/openstack-neutron-server-ciscoaci:1581099481 
+   DockerNeutronConfigImage: 192.168.24.1:8787/rhosp13/openstack-neutron-server-ciscoaci:1581099481 
+   DockerHeatEngineImage: 192.168.24.1:8787/rhosp13/openstack-heat-engine-ciscoaci:1581099481 
+   DockerCiscoLldpImage: 192.168.24.1:8787/rhosp13/openstack-ciscoaci-lldp:1581099481 
