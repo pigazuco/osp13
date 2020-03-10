@@ -1,6 +1,7 @@
 ---
 - name: Deploy project
   hosts: osp13-undercloud
+  remote_user: stack
   gather_facts: no
   vars_prompt:
     - name: "project"
@@ -10,7 +11,7 @@
   tasks:
     - name: source bashrc
       sudo: no
-      shell: source overcloudrc 
+      shell: source overcloudrc
     - name: Create project
       command: "{{item}}"
       with_items:
