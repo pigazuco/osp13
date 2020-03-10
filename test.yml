@@ -17,7 +17,8 @@
         - "openstack project create --description {{project}} {{project}}"
         - "openstack role add --user admin --project {{project}} admin"
       register: output
-    - debug: msg="{{ output.stdout }}"
+    - debug:
+        var: output.stdout_lines
 - name: Deploy TEST
   hosts: osp13-undercloud
   remote_user: stack
@@ -30,4 +31,5 @@
       with_items:
         - "openstack network create {{project}}-NET10"
       register: output
-    - debug: msg="{{ output.stdout }}"
+    - debug:
+        var: output.stdout_lines
