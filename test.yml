@@ -18,6 +18,10 @@
         - "openstack role add --user admin --project {{project}} admin"
       register: output
     - debug: msg="{{ output.stdout }}"
+- name: Deploy TEST
+  hosts: osp13-undercloud
+  remote_user: stack
+  gather_facts: no
   environment:
     OS_PROJECT_NAME: "{{project}}"
   tasks:
