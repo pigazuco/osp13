@@ -8,6 +8,9 @@
       default: "TEST"
       private: no
   tasks:
+    - name: source bashrc
+      sudo: no
+      shell: source overcloudrc 
     - name: Create project
       command: "{{item}}"
       with_items:
