@@ -1,16 +1,22 @@
 ---
-- name: Delete project
+- name: Deploy project
   hosts: osp13-undercloud
   gather_facts: no
-  environment:
-    OS_PROJECT_NAME: TEST
   vars_prompt:
     - name: "project"
       prompt: "TEST"
       default: "TEST"
       private: no
   tasks:
-    - name: Delete project
+    - name: Create project
       command: "{{item}}"
       with_items:
-        - "openstack network create TEST"
+        - "openstack project create --description {{project}} {{project}}"
+        - "openstack role add --user admin --project {{project}} admin"
+  environment:
+    OS_PROJECT_NAME: "{{project}}"
+  tasks:
+    - name: Create objects
+      command: "{{item}}"
+      with_items:
+        - "openstack network create {{project}}-NET10"
