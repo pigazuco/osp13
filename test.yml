@@ -1,5 +1,5 @@
 ---
-- name: Deploy project
+- name: Deploy TEST
   hosts: osp13-undercloud
   remote_user: stack
   gather_facts: no
@@ -9,18 +9,21 @@
       default: "TEST"
       private: no
   tasks:
-    - name: source bashrc
-      sudo: no
+    - name: LOAD ENV FILE
       shell: source overcloudrc
-    - name: Create project
+    - name: CREATE PROJECT
       command: "{{item}}"
       with_items:
         - "openstack project create --description {{project}} {{project}}"
         - "openstack role add --user admin --project {{project}} admin"
+      register: output
+    - debug: msg="{{ output.stdout }}"
   environment:
     OS_PROJECT_NAME: "{{project}}"
   tasks:
-    - name: Create objects
+    - name: CREATE OBJECTS
       command: "{{item}}"
       with_items:
         - "openstack network create {{project}}-NET10"
+      register: output
+    - debug: msg="{{ output.stdout }}"
