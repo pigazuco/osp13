@@ -84,6 +84,9 @@ openstack baremetal node set --property capabilities='profile:compute,boot_optio
 openstack overcloud profiles list
 
 openstack flavor set --property ram=12288 b85e1cf0-f6b7-4187-b671-dfea7ef4c936
+curl -O http://registry.mad.lab/osp13/deploy_overcloud.sh
+
+bash deploy_overcloud.sh 
 
 
 ##############################################################
