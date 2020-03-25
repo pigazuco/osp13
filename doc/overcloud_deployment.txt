@@ -36,6 +36,13 @@ openstack image list
 vbmc add osp-node1 --port 7011 --username admin --password openstack
 vbmc add osp-node2 --port 7012 --username admin --password openstack
 vbmc add osp-node3 --port 7013 --username admin --password openstack
+echo '/usr/bin/vbmc start osp-node1' >> /etc/rc.local 
+echo '/usr/bin/vbmc start osp-node2' >> /etc/rc.local 
+echo '/usr/bin/vbmc start osp-node3' >> /etc/rc.local 
+/usr/bin/vbmc start osp-node1
+/usr/bin/vbmc start osp-node2
+/usr/bin/vbmc start osp-node3
+/usr/bin/vbmc list
 
 export IRONIC_API_VERSION=1.11
 openstack baremetal node create --driver ipmi --name node1 --os-baremetal-api-version 1.31 \
@@ -46,7 +53,7 @@ openstack baremetal node create --driver ipmi --name node1 --os-baremetal-api-ve
     --driver-info ipmi_port=7011 \
     --driver-info deploy_ramdisk=c0a6bb7d-7037-4bc3-826f-c5ac5a5b0286 \
     --driver-info deploy_kernel=0fdd535a-d80c-48e9-8cda-4b0b96338bf2
-openstack baremetal port create <<MAC>> --node <<uuid>>
+openstack baremetal port create 52:54:00:09:9b:a9 --node <<uuid>>
 openstack baremetal node create --driver ipmi --name node2 --os-baremetal-api-version 1.31 \
     --deploy-interface direct \
     --driver-info ipmi_username=admin \
@@ -55,7 +62,7 @@ openstack baremetal node create --driver ipmi --name node2 --os-baremetal-api-ve
     --driver-info ipmi_port=7012 \
     --driver-info deploy_ramdisk=c0a6bb7d-7037-4bc3-826f-c5ac5a5b0286 \
     --driver-info deploy_kernel=0fdd535a-d80c-48e9-8cda-4b0b96338bf2
-openstack baremetal port create <<MAC>> --node <<uuid>>
+openstack baremetal port create 52:54:00:3c:42:a8 --node <<uuid>>
 openstack baremetal node create --driver ipmi --name node3 --os-baremetal-api-version 1.31 \
     --deploy-interface direct \
     --driver-info ipmi_username=admin \
@@ -64,8 +71,7 @@ openstack baremetal node create --driver ipmi --name node3 --os-baremetal-api-ve
     --driver-info ipmi_port=7013 \
     --driver-info deploy_ramdisk=c0a6bb7d-7037-4bc3-826f-c5ac5a5b0286 \
     --driver-info deploy_kernel=0fdd535a-d80c-48e9-8cda-4b0b96338bf2
-openstack baremetal port create <<MAC>> --node <<uuid>>
-
+openstack baremetal port create 52:54:00:e3:1f:c7 --node <<uuid>>
 
 openstack baremetal node manage node1
 openstack baremetal node manage node2
@@ -80,10 +86,7 @@ openstack overcloud profiles list
 
 
 
-
-
-
-
+##############################################################
 
 sudo openstack undercloud deploy --local-ip=192.168.24.1 --templates=/usr/share/openstack-tripleo-heat-templates/ --heat-native -e /usr/share/openstack-tripleo-heat-templates/environments/services/ironic.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/ironic-inspector.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/mistral.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/zaqar.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/docker.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/config-download-environment.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/undercloud.yaml -e /tmp/undercloud_parameters.yaml --output-dir=/home/stack
 
