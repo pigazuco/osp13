@@ -85,7 +85,8 @@ openstack overcloud profiles list
 
 openstack flavor set --property ram=12288 b85e1cf0-f6b7-4187-b671-dfea7ef4c936
 curl -O http://registry.mad.lab/osp13/deploy_overcloud.sh
-
+curl -O http://registry.mad.lab/osp13/tripleo-ciscoaci-13.0-749.noarch.rpm
+sudo yum localinstall tripleo-ciscoaci-13.0-749.noarch.rpm -y
 bash deploy_overcloud.sh 
 
 
