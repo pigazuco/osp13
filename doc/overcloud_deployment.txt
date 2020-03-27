@@ -5,7 +5,7 @@ systemctl stop NetworkManager
 yum update -y
 yum install wget net-tools tcpdump -y
 sudo useradd stack
-sudo passwd stack  # specify a password
+#sudo passwd stack  # specify a password
 echo "stack ALL=(root) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/stack
 sudo chmod 0440 /etc/sudoers.d/stack
 su - stack
