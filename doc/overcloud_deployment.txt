@@ -1,4 +1,17 @@
 Despliegue de Overcloud
+####HYPERVISOR############################################################
+#PREPARA NODOS
+vbmc add osp-node1 --port 7011 --username admin --password openstack
+vbmc add osp-node2 --port 7012 --username admin --password openstack
+vbmc add osp-node3 --port 7013 --username admin --password openstack
+echo '/usr/bin/vbmc start osp-node1' >> /etc/rc.local 
+echo '/usr/bin/vbmc start osp-node2' >> /etc/rc.local 
+echo '/usr/bin/vbmc start osp-node3' >> /etc/rc.local 
+/usr/bin/vbmc start osp-node1
+/usr/bin/vbmc start osp-node2
+/usr/bin/vbmc start osp-node3
+/usr/bin/vbmc list
+############################################################################
 
 systemctl disable NetworkManager
 systemctl stop NetworkManager
@@ -33,17 +46,7 @@ openstack overcloud image upload
 openstack image list
 cd ..
 
-#PREPARA NODOS
-vbmc add osp-node1 --port 7011 --username admin --password openstack
-vbmc add osp-node2 --port 7012 --username admin --password openstack
-vbmc add osp-node3 --port 7013 --username admin --password openstack
-echo '/usr/bin/vbmc start osp-node1' >> /etc/rc.local 
-echo '/usr/bin/vbmc start osp-node2' >> /etc/rc.local 
-echo '/usr/bin/vbmc start osp-node3' >> /etc/rc.local 
-/usr/bin/vbmc start osp-node1
-/usr/bin/vbmc start osp-node2
-/usr/bin/vbmc start osp-node3
-/usr/bin/vbmc list
+
 
 export IRONIC_API_VERSION=1.11
 openstack baremetal node create --driver ipmi --name node1 --os-baremetal-api-version 1.31 \
