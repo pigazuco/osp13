@@ -31,6 +31,7 @@ curl -O http://registry.mad.lab/osp13/images/overcloud-full.vmlinuz
 curl -O http://registry.mad.lab/osp13/images/undercloud.qcow2
 openstack overcloud image upload
 openstack image list
+cd ..
 
 #PREPARA NODOS
 vbmc add osp-node1 --port 7011 --username admin --password openstack
@@ -93,6 +94,7 @@ sudo echo '{ "debug":true, "insecure-registries":["registry.mad.lab:5000","192.1
 sudo echo '[Service]
 ExecStart=
 ExecStart=/usr/bin/dockerd' > /etc/systemd/system/docker.service.d/docker.conf
+#####sudo ln -s /usr/libexec/docker/docker-runc-current /usr/libexec/docker/docker-runc 
 sudo systemctl daemon-reload
 sudo service docker restart
 sudo service docker restart
