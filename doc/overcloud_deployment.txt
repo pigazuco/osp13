@@ -87,8 +87,13 @@ openstack flavor set --property ram=12288 control
 
 curl -O http://registry.mad.lab/osp13/deploy_overcloud.sh
 curl -O http://registry.mad.lab/osp13/tripleo-ciscoaci-13.0-749.noarch.rpm
+curl -O http://registry.mad.lab/osp13/deploy.tar
+tar -xf deploy.tar
+mv deploy/* .
+rmdir deploy
+rm templates/ciscoaci_containers.yaml 
 sudo yum localinstall tripleo-ciscoaci-13.0-749.noarch.rpm -y
-cp -rv /opt/ciscoaci-tripleo-heat-templates .
+cp -r /opt/ciscoaci-tripleo-heat-templates .
 
 sudo echo '{ "debug":true, "insecure-registries":["registry.mad.lab:5000","192.168.24.1:8787"] }' > /etc/docker/daemon.json
 sudo echo '[Service]
@@ -102,12 +107,9 @@ sudo service docker restart
 /opt/ciscoaci-tripleo-heat-templates/tools/build_openstack_aci_containers.py --upstream=registry.mad.lab:5000 --destregistry=192.168.24.1:8787
 
 
-
-
 openstack role add --user admin --project service ResellerAdmin
 openstack --os-project-name service object store account set --property Temp-URL-Key=$(uuidgen | sha1sum | awk '{print $1}')
 bash deploy_overcloud.sh 
-
 
 
 openstack stack resource list overcloud --filter status=FAILED
