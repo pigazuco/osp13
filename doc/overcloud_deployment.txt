@@ -108,7 +108,7 @@ sleep 5
 systemctl daemon-reload
 sleep 5 
 service docker restart
-su - stack
+exit
 source stackrc
 
 /opt/ciscoaci-tripleo-heat-templates/tools/build_openstack_aci_containers.py --upstream=registry.mad.lab:5000 --destregistry=192.168.24.1:8787
