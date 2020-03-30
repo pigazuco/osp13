@@ -86,7 +86,7 @@ openstack baremetal node set --property capabilities='profile:control,boot_optio
 openstack baremetal node set --property capabilities='profile:compute,boot_option:local' node2
 openstack baremetal node set --property capabilities='profile:compute,boot_option:local' node3
 openstack overcloud profiles list
-openstack flavor set --property ram=12288 <ID>
+openstack flavor set --property ram=12288 control
 
 curl -O http://registry.mad.lab/osp13/deploy_overcloud.sh
 curl -O http://registry.mad.lab/osp13/tripleo-ciscoaci-13.0-749.noarch.rpm
