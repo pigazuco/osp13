@@ -98,14 +98,18 @@ rm templates/ciscoaci_containers.yaml
 sudo yum localinstall tripleo-ciscoaci-13.0-749.noarch.rpm -y
 cp -r /opt/ciscoaci-tripleo-heat-templates .
 
-sudo echo '{ "debug":true, "insecure-registries":["registry.mad.lab:5000","192.168.24.1:8787"] }' > /etc/docker/daemon.json
-sudo echo '[Service]
+sudo su
+echo '{ "debug":true, "insecure-registries":["registry.mad.lab:5000","192.168.24.1:8787"] }' > /etc/docker/daemon.json
+echo '[Service]
 ExecStart=
 ExecStart=/usr/bin/dockerd' > /etc/systemd/system/docker.service.d/docker.conf
-sudo ln -s /usr/libexec/docker/docker-runc-current /usr/libexec/docker/docker-runc 
-sudo systemctl daemon-reload
-sudo service docker restart
-sudo service docker restart
+ln -s /usr/libexec/docker/docker-runc-current /usr/libexec/docker/docker-runc 
+sleep 5
+systemctl daemon-reload
+sleep 5 
+service docker restart
+su - stack
+source stackrc
 
 /opt/ciscoaci-tripleo-heat-templates/tools/build_openstack_aci_containers.py --upstream=registry.mad.lab:5000 --destregistry=192.168.24.1:8787
 
