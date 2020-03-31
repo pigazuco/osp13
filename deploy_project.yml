@@ -1,6 +1,6 @@
 ---
 - name: Deploy project
-  hosts: osp13-undercloud
+  hosts: osp-director
   remote_user: stack
   gather_facts: no
   vars_prompt:
