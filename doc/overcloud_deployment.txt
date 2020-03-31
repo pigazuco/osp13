@@ -1,0 +1,184 @@
+Despliegue de Overcloud
+#########################################################################################################
+#########################################################################################################
+vbmc add osp-node1 --port 7011 --username admin --password openstack
+vbmc add osp-node2 --port 7012 --username admin --password openstack
+vbmc add osp-node3 --port 7013 --username admin --password openstack
+echo '/usr/bin/vbmc start osp-node1' >> /etc/rc.local 
+echo '/usr/bin/vbmc start osp-node2' >> /etc/rc.local 
+echo '/usr/bin/vbmc start osp-node3' >> /etc/rc.local 
+/usr/bin/vbmc start osp-node1
+/usr/bin/vbmc start osp-node2
+/usr/bin/vbmc start osp-node3
+/usr/bin/vbmc list
+
+#########################################################################################################
+#########################################################################################################
+systemctl disable NetworkManager
+systemctl stop NetworkManager
+yum update -y
+reboot
+yum install wget net-tools tcpdump -y
+sudo useradd stack
+#sudo passwd stack  # specify a password
+echo "stack ALL=(root) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/stack
+sudo chmod 0440 /etc/sudoers.d/stack
+su - stack
+
+curl -O http://registry.mad.lab/osp13/python2-tripleo-repos-0.0.1-0.20200310031818.5aa9c9a.el7.noarch.rpm
+sudo yum localinstall python2-tripleo-repos-0.0.1-0.20200310031818.5aa9c9a.el7.noarch.rpm  -y
+sudo -E tripleo-repos -b queens current
+sudo yum install -y python-tripleoclient
+cp /usr/share/python-tripleoclient/undercloud.conf.sample ~/undercloud.conf
+openstack undercloud install
+sudo yum -y update
+source stackrc
+openstack subnet set --dns-nameserver 1.255.0.1  ctlplane-subnet
+mkdir images
+cd images/
+curl -O http://registry.mad.lab/osp13/images/ironic-python-agent.initramfs
+curl -O http://registry.mad.lab/osp13/images/ironic-python-agent.kernel
+curl -O http://registry.mad.lab/osp13/images/overcloud-full.initrd
+curl -O http://registry.mad.lab/osp13/images/overcloud-full.qcow2
+curl -O http://registry.mad.lab/osp13/images/overcloud-full.vmlinuz
+curl -O http://registry.mad.lab/osp13/images/undercloud.qcow2
+openstack overcloud image upload
+openstack image list
+cd ..
+
+#########################################################################################################
+######INTROSPECT#########################################################################################
+RAMDISK=`openstack image list | grep bm-deploy-ramdisk | awk '{print $2}'`
+KERNEL=`openstack image list | grep bm-deploy-kernel | awk '{print $2}'`
+export IRONIC_API_VERSION=1.11
+openstack baremetal node create --driver ipmi --name node1 --os-baremetal-api-version 1.31 \
+    --deploy-interface direct \
+    --driver-info ipmi_username=admin \
+    --driver-info ipmi_password=openstack \
+    --driver-info ipmi_address=srv1.mad.lab \
+    --driver-info ipmi_port=7011 \
+    --driver-info deploy_ramdisk=$RAMDISK \
+    --driver-info deploy_kernel=$KERNEL
+openstack baremetal node create --driver ipmi --name node2 --os-baremetal-api-version 1.31 \
+    --deploy-interface direct \
+    --driver-info ipmi_username=admin \
+    --driver-info ipmi_password=openstack \
+    --driver-info ipmi_address=srv1.mad.lab \
+    --driver-info ipmi_port=7012 \
+    --driver-info deploy_ramdisk=$RAMDISK \
+    --driver-info deploy_kernel=$KERNEL
+openstack baremetal node create --driver ipmi --name node3 --os-baremetal-api-version 1.31 \
+    --deploy-interface direct \
+    --driver-info ipmi_username=admin \
+    --driver-info ipmi_password=openstack \
+    --driver-info ipmi_address=srv1.mad.lab \
+    --driver-info ipmi_port=7013 \
+    --driver-info deploy_ramdisk=$RAMDISK \
+    --driver-info deploy_kernel=$KERNEL
+
+NODEID1=`openstack baremetal node list | grep node1 | awk '{print $2}'`
+NODEID2=`openstack baremetal node list | grep node2 | awk '{print $2}'`
+NODEID3=`openstack baremetal node list | grep node3 | awk '{print $2}'`
+openstack baremetal port create 52:54:00:09:9b:a9 --node $NODEID1
+openstack baremetal port create 52:54:00:3c:42:a8 --node $NODEID2
+openstack baremetal port create 52:54:00:e3:1f:c7 --node $NODEID3
+
+openstack baremetal node manage node1
+openstack baremetal node manage node2
+openstack baremetal node manage node3
+openstack overcloud node introspect --provide --all-manageable 
+
+openstack baremetal node set --property capabilities='profile:control,boot_option:local' node1
+openstack baremetal node set --property capabilities='profile:compute,boot_option:local' node2
+openstack baremetal node set --property capabilities='profile:compute,boot_option:local' node3
+openstack overcloud profiles list
+openstack flavor set --property ram=12288 control
+#########################################################################################################
+#########################################################################################################
+
+
+curl -O http://registry.mad.lab/osp13/deploy_overcloud.sh
+curl -O http://registry.mad.lab/osp13/delete_overcloud.sh
+curl -O http://registry.mad.lab/osp13/patch.diff
+curl -O http://registry.mad.lab/osp13/tripleo-ciscoaci-13.0-749.noarch.rpm
+curl -O http://registry.mad.lab/osp13/deploy.tar
+tar -xf deploy.tar
+mv deploy/* .
+rmdir deploy
+sudo patch /usr/share/openstack-tripleo-heat-templates/docker/services/keystone.yaml < patch.diff 
+rm templates/ciscoaci_containers.yaml 
+sudo yum localinstall tripleo-ciscoaci-13.0-749.noarch.rpm -y
+cp -r /opt/ciscoaci-tripleo-heat-templates .
+
+sudo su
+echo '{ "debug":true, "insecure-registries":["registry.mad.lab:5000","192.168.24.1:8787"] }' > /etc/docker/daemon.json
+echo '[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd' > /etc/systemd/system/docker.service.d/docker.conf
+ln -s /usr/libexec/docker/docker-runc-current /usr/libexec/docker/docker-runc
+sleep 3s 
+systemctl daemon-reload
+sleep 3s 
+service docker restart
+exit
+source stackrc
+
+/opt/ciscoaci-tripleo-heat-templates/tools/build_openstack_aci_containers.py --upstream=registry.mad.lab:5000 --destregistry=192.168.24.1:8787
+
+openstack role add --user admin --project service ResellerAdmin
+openstack --os-project-name service object store account set --property Temp-URL-Key=$(uuidgen | sha1sum | awk '{print $1}')
+bash deploy_overcloud.sh 
+
+
+openstack stack resource list overcloud --filter status=FAILED
+openstack stack failures list --long overcloud
+
+
+!!!!!!
+
+
+!!!!!
+
+##############################################################
+
+sudo openstack undercloud deploy --local-ip=192.168.24.1 --templates=/usr/share/openstack-tripleo-heat-templates/ --heat-native -e /usr/share/openstack-tripleo-heat-templates/environments/services/ironic.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/ironic-inspector.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/mistral.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/zaqar.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/docker.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/config-download-environment.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/undercloud.yaml -e /tmp/undercloud_parameters.yaml --output-dir=/home/stack
+
+
+
+https://docs.openstack.org/project-deploy-guide/tripleo-docs/latest/features/deployed_server.html
+https://bugzilla.redhat.com/show_bug.cgi?format=multiple&id=1657050
+
+Need to document how to configure direct deploy in ironic for OSP13
+
+It's done with:
+source ~/stackrc
+
+openstack role add --user admin --project service ResellerAdmin
+openstack --os-project-name service object store account set --property Temp-URL-Key=$(uuidgen | sha1sum | awk '{print $1}')
+
+openstack baremetal node set --deploy-interface direct node1
+openstack baremetal node set --deploy-interface direct node2
+
+
+Note that these 2 commands aren't required for OSP14:
+openstack role add --user admin --project service ResellerAdmin
+openstack --os-project-name service object store account set --property Temp-URL-Key=$(uuidgen | sha1sum | awk '{print $1}')
+
+curl -X GET http://registry.mad.lab:5000/v2/_catalog
+
+
+https://docs.openstack.org/project-deploy-guide/tripleo-docs/latest/features/network_isolation.html
+
+time openstack overcloud deploy --templates -e ~/generated-openstack-tripleo-heat-templates/network_data.yaml -e ~/generated-openstack-tripleo-heat-templates/roles_data.yaml --ntp-server 1.255.0.1 
+
+
+openstack overcloud deploy --templates /home/stack/tripleo-heat-templates -r /home/stack/templates/aci_roles_data.yaml  -e /home/stack/tripleo-heat-templates/environments/network-isolation.yaml -e /home/stack/templates/overcloud_images.yaml -e /home/stack/templates/network-environment.yaml -e /home/stack/templates/ciscoaci_containers.yaml -e /home/stack/templates/aci_cs.yaml -e /home/stack/templates/rhel-registration-resource-registry.yaml -e /home/stack/templates/environment-rhel-registration.yaml
+
+
+
+touch redhat-uep.pem
+
+
+
+
+
