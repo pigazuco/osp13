@@ -98,11 +98,14 @@ openstack flavor set --property ram=12288 control
 
 
 curl -O http://registry.mad.lab/osp13/deploy_overcloud.sh
+curl -O http://registry.mad.lab/osp13/delete_overcloud.sh
+curl -O http://registry.mad.lab/osp13/patch.diff
 curl -O http://registry.mad.lab/osp13/tripleo-ciscoaci-13.0-749.noarch.rpm
 curl -O http://registry.mad.lab/osp13/deploy.tar
 tar -xf deploy.tar
 mv deploy/* .
 rmdir deploy
+sudo patch /usr/share/openstack-tripleo-heat-templates/docker/services/keystone.yaml < patch.diff 
 rm templates/ciscoaci_containers.yaml 
 sudo yum localinstall tripleo-ciscoaci-13.0-749.noarch.rpm -y
 cp -r /opt/ciscoaci-tripleo-heat-templates .
@@ -112,12 +115,12 @@ echo '{ "debug":true, "insecure-registries":["registry.mad.lab:5000","192.168.24
 echo '[Service]
 ExecStart=
 ExecStart=/usr/bin/dockerd' > /etc/systemd/system/docker.service.d/docker.conf
-ln -s /usr/libexec/docker/docker-runc-current /usr/libexec/docker/docker-runc 
-sleep 5
+ln -s /usr/libexec/docker/docker-runc-current /usr/libexec/docker/docker-runc
+sleep 3s 
 systemctl daemon-reload
-sleep 5 
+sleep 3s 
 service docker restart
-exit
+su - stack
 source stackrc
 
 /opt/ciscoaci-tripleo-heat-templates/tools/build_openstack_aci_containers.py --upstream=registry.mad.lab:5000 --destregistry=192.168.24.1:8787
