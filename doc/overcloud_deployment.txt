@@ -1,6 +1,6 @@
 Despliegue de Overcloud
-####HYPERVISOR############################################################
-#PREPARA NODOS
+#########################################################################################################
+#########################################################################################################
 vbmc add osp-node1 --port 7011 --username admin --password openstack
 vbmc add osp-node2 --port 7012 --username admin --password openstack
 vbmc add osp-node3 --port 7013 --username admin --password openstack
@@ -11,8 +11,9 @@ echo '/usr/bin/vbmc start osp-node3' >> /etc/rc.local
 /usr/bin/vbmc start osp-node2
 /usr/bin/vbmc start osp-node3
 /usr/bin/vbmc list
-############################################################################
 
+#########################################################################################################
+#########################################################################################################
 systemctl disable NetworkManager
 systemctl stop NetworkManager
 yum update -y
@@ -86,15 +87,15 @@ openstack baremetal node manage node1
 openstack baremetal node manage node2
 openstack baremetal node manage node3
 openstack overcloud node introspect --provide --all-manageable 
-#########################################################################################################
-#########################################################################################################
-
 
 openstack baremetal node set --property capabilities='profile:control,boot_option:local' node1
 openstack baremetal node set --property capabilities='profile:compute,boot_option:local' node2
 openstack baremetal node set --property capabilities='profile:compute,boot_option:local' node3
 openstack overcloud profiles list
 openstack flavor set --property ram=12288 control
+#########################################################################################################
+#########################################################################################################
+
 
 curl -O http://registry.mad.lab/osp13/deploy_overcloud.sh
 curl -O http://registry.mad.lab/osp13/tripleo-ciscoaci-13.0-749.noarch.rpm
