@@ -16,6 +16,7 @@ echo '/usr/bin/vbmc start osp-node3' >> /etc/rc.local
 systemctl disable NetworkManager
 systemctl stop NetworkManager
 yum update -y
+reboot
 yum install wget net-tools tcpdump -y
 sudo useradd stack
 #sudo passwd stack  # specify a password
@@ -28,7 +29,7 @@ sudo yum localinstall python2-tripleo-repos-0.0.1-0.20200310031818.5aa9c9a.el7.n
 sudo -E tripleo-repos -b queens current
 sudo yum install -y python-tripleoclient
 cp /usr/share/python-tripleoclient/undercloud.conf.sample ~/undercloud.conf
-openstack undercloud install #--use-heat
+openstack undercloud install
 sudo yum -y update
 source stackrc
 openstack subnet set --dns-nameserver 1.255.0.1  ctlplane-subnet
