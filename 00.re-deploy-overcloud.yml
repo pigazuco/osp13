@@ -1,6 +1,6 @@
 ---
 - name: Redeploy-overcloud
-  hosts: osp13-undercloud
+  hosts: osp13-director
   remote_user: stack
   gather_facts: no
   tasks:
