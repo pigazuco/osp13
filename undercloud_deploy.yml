@@ -6,6 +6,7 @@
   tasks:
     - name: Disable NetworkManager
       systemd:
+        name: NetworkManager
         state: stopped
         enabled: no
     - meta: end_play
