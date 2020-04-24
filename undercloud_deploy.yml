@@ -29,7 +29,7 @@
   remote_user: stack
   gather_facts: no
   tasks:
-    - include_vars: stackrc
+    - include_vars: /home/stack/stackrc
     - name: UpdateDNS
       command: "{{item}}"
       with_items:
