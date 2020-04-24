@@ -9,7 +9,7 @@
         name: NetworkManager
         state: stopped
         enabled: no
-- name: DEPLOY-UNDERCLOUD
+#- name: DEPLOY-UNDERCLOUD
 #  hosts: osp-director
 #  remote_user: stack
 #  gather_facts: no
