@@ -29,10 +29,8 @@
   remote_user: stack
   gather_facts: no
   tasks:
-    - name: Deploy overcloud
-      include_vars:
-        file: stackrc
-        name: stackrc
+    - include_vars: stackrc
+    - name: UpdateDNS
       command: "{{item}}"
       with_items:
         - openstack subnet set --dns-nameserver 1.255.0.1  ctlplane-subnet
