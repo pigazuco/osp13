@@ -33,5 +33,5 @@
     - name: UpdateDNS
       command: "{{item}}"
       with_items:
-        - source stackrc
+        - source ~/stackrc
         - openstack subnet set --dns-nameserver 1.255.0.1  ctlplane-subnet
