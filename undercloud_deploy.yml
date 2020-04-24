@@ -5,9 +5,9 @@
   gather_facts: no
   tasks:
     - name: Disable NetworkManager
-        systemd:
-          state: stopped
-          enabled: no
+      systemd:
+        state: stopped
+        enabled: no
     - meta: end_play
 - name: DEPLOY-UNDERCLOUD
   hosts: osp-director
