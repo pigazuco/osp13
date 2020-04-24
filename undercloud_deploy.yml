@@ -29,8 +29,9 @@
   remote_user: stack
   gather_facts: no
   tasks:
-    - include_vars: /home/stack/stackrc
+#    - include_vars: /home/stack/stackrc
     - name: UpdateDNS
       command: "{{item}}"
       with_items:
+        - source stackrc
         - openstack subnet set --dns-nameserver 1.255.0.1  ctlplane-subnet
