@@ -9,21 +9,21 @@
         name: NetworkManager
         state: stopped
         enabled: no
-#- name: DEPLOY-UNDERCLOUD
-#  hosts: osp-director
-#  remote_user: stack
-#  gather_facts: no
-#  tasks:
-#    - name: Deploy overcloud
-#      command: "{{item}}"
-#      with_items:
-#        - curl -O http://registry.mad.lab/osp13/python2-tripleo-repos-0.0.1-0.20200310031818.5aa9c9a.el7.noarch.rpm
-#        - sudo yum localinstall python2-tripleo-repos-0.0.1-0.20200310031818.5aa9c9a.el7.noarch.rpm  -y
-#        - sudo -E tripleo-repos -b queens current
-#        - sudo yum install -y python-tripleoclient
-#        - cp /usr/share/python-tripleoclient/undercloud.conf.sample ~/undercloud.conf
-#        - openstack undercloud install
-#        - echo 'source stackrc' >> .bashrc
+- name: DEPLOY-UNDERCLOUD
+  hosts: osp-director
+  remote_user: stack
+  gather_facts: no
+  tasks:
+    - name: Deploy overcloud
+      command: "{{item}}"
+      with_items:
+        - curl -O http://registry.mad.lab/osp13/python2-tripleo-repos-0.0.1-0.20200310031818.5aa9c9a.el7.noarch.rpm
+        - sudo yum localinstall python2-tripleo-repos-0.0.1-0.20200310031818.5aa9c9a.el7.noarch.rpm  -y
+        - sudo -E tripleo-repos -b queens current
+        - sudo yum install -y python-tripleoclient
+        - cp /usr/share/python-tripleoclient/undercloud.conf.sample ~/undercloud.conf
+        - openstack undercloud install
+        - echo 'source stackrc' >> .bashrc
 - name: DEPLOY-UNDERCLOUD
   hosts: osp-director
   remote_user: stack
@@ -34,8 +34,9 @@
       command: "{{item}}"
       with_items:
         - openstack subnet set --dns-nameserver 1.255.0.1  ctlplane-subnet
-        - mkdir images
-        - cd images/
+    - name: Load Images
+      command: "{{item}}"
+      with_items:
         - curl -O http://registry.mad.lab/osp13/images/ironic-python-agent.initramfs
         - curl -O http://registry.mad.lab/osp13/images/ironic-python-agent.kernel
         - curl -O http://registry.mad.lab/osp13/images/overcloud-full.initrd
@@ -43,5 +44,10 @@
         - curl -O http://registry.mad.lab/osp13/images/overcloud-full.vmlinuz
         - curl -O http://registry.mad.lab/osp13/images/undercloud.qcow2
         - openstack overcloud image upload
-        - openstack image list
-        
+        - rm -rf ironic-python-agent.initramfs
+        - rm -rf ironic-python-agent.kernel
+        - rm -rf overcloud-full.initrd
+        - rm -rf overcloud-full.qcow2
+        - rm -rf overcloud-full.vmlinuz
+        - rm -rf undercloud.qcow2
+########IRONIC
