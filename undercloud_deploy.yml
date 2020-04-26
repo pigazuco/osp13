@@ -26,8 +26,10 @@
       command: openstack undercloud install
       register: salida
     - debug: msg="{{ salida.stdout }}"
-    - name: Save stackrc
-      command: echo 'source stackrc' >> .bashrc
+    - name: Insert stackrc on bashrc
+      lineinfile:
+        path: ~/.bashrc
+        line: source stackrc
 - name: DEPLOY-UNDERCLOUD
   hosts: osp-director
   remote_user: stack
