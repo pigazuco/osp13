@@ -23,8 +23,8 @@
         - sudo yum install -y python-tripleoclient
         - cp /usr/share/python-tripleoclient/undercloud.conf.sample ~/undercloud.conf
     - name: Install overcloud
-        command: openstack undercloud install
-        register: salida
+      command: openstack undercloud install
+      register: salida
     - debug: msg="{{ salida.stdout }}"
     - name: Save stackrc
         - echo 'source stackrc' >> .bashrc
