@@ -14,7 +14,7 @@
   remote_user: stack
   gather_facts: no
   tasks:
-    - name: Deploy overcloud
+    - name: RPM packages for overcloud
       command: "{{item}}"
       with_items:
         - curl -O http://registry.mad.lab/osp13/python2-tripleo-repos-0.0.1-0.20200310031818.5aa9c9a.el7.noarch.rpm
@@ -22,7 +22,11 @@
         - sudo -E tripleo-repos -b queens current
         - sudo yum install -y python-tripleoclient
         - cp /usr/share/python-tripleoclient/undercloud.conf.sample ~/undercloud.conf
-        - openstack undercloud install
+    - name: Install overcloud
+        command: openstack undercloud install
+        register: salida
+    - debug: msg="{{ salida.stdout }}"
+    - name: Save stackrc
         - echo 'source stackrc' >> .bashrc
 - name: DEPLOY-UNDERCLOUD
   hosts: osp-director
