@@ -23,8 +23,7 @@
 #        - sudo yum install -y python-tripleoclient
 #        - cp /usr/share/python-tripleoclient/undercloud.conf.sample ~/undercloud.conf
 #        - openstack undercloud install
-#       - echo 'source stackrc' >> .bashrc
-
+#        - echo 'source stackrc' >> .bashrc
 - name: DEPLOY-UNDERCLOUD
   hosts: osp-director
   remote_user: stack
