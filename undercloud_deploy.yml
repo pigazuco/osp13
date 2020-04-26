@@ -34,3 +34,14 @@
       command: "{{item}}"
       with_items:
         - openstack subnet set --dns-nameserver 1.255.0.1  ctlplane-subnet
+        - mkdir images
+        - cd images/
+        - curl -O http://registry.mad.lab/osp13/images/ironic-python-agent.initramfs
+        - curl -O http://registry.mad.lab/osp13/images/ironic-python-agent.kernel
+        - curl -O http://registry.mad.lab/osp13/images/overcloud-full.initrd
+        - curl -O http://registry.mad.lab/osp13/images/overcloud-full.qcow2
+        - curl -O http://registry.mad.lab/osp13/images/overcloud-full.vmlinuz
+        - curl -O http://registry.mad.lab/osp13/images/undercloud.qcow2
+        - openstack overcloud image upload
+        - openstack image list
+        
