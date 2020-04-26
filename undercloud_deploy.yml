@@ -27,7 +27,7 @@
       register: salida
     - debug: msg="{{ salida.stdout }}"
     - name: Save stackrc
-        - echo 'source stackrc' >> .bashrc
+      command: echo 'source stackrc' >> .bashrc
 - name: DEPLOY-UNDERCLOUD
   hosts: osp-director
   remote_user: stack
