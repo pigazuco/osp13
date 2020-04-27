@@ -61,14 +61,14 @@
   remote_user: stack
   gather_facts: no
   tasks:
-    - name: Get RAMDISK
+    - name: Get ramdisk id
       shell:
         cmd: openstack image list | grep bm-deploy-ramdisk | awk '{print $2}'
       register: ramdisk
-    - debug: var=ramdisk
+    - debug: ramdisk=ramdisk
   tasks:
-    - name: Get KERNEL
+    - name: Get kernel id
       shell:
         cmd: openstack image list | grep bm-deploy-kernel | awk '{print $2}'
       register: kernel
-    - debug: msg="{{ kernel.stdout }}"
+    - debug: kernel="{{ kernel.stdout }}"
