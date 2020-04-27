@@ -162,8 +162,8 @@
         url: http://registry.mad.lab/osp13/deploy.tar
         dest: ~/deploy.tar
     - name: Uncompress templates
-      unarchive:
-        src: deploy.tar
+      shell:
+        cmd: tar -xf deploy.tar
         dest: ~/
     - name: Patch keystone.yaml
       shell:
