@@ -164,7 +164,6 @@
     - name: Uncompress templates
       shell:
         cmd: tar -xf deploy.tar
-        dest: ~/
     - name: Patch keystone.yaml
       shell:
         cmd: sudo patch /usr/share/openstack-tripleo-heat-templates/docker/services/keystone.yaml < patch.diff
