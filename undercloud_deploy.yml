@@ -59,7 +59,7 @@
 - name: IRONIC
   hosts: osp-director
   remote_user: stack
-  gather_facts: yes
+  gather_facts: no
   tasks:
     - name: Get ramdisk id
       shell:
@@ -70,6 +70,9 @@
       shell:
         cmd: openstack image list | grep bm-deploy-kernel | awk '{print $2}'
       register: kernel
+    - set_fact:
+        kernel: "{{ kernel.stdout }}"
+
   tasks:
     - name: Add node1
       shell:
@@ -79,7 +82,7 @@
             --driver-info ipmi_password=openstack
             --driver-info ipmi_address=srv1.mad.lab
             --driver-info ipmi_port=7011
-            --driver-info deploy_ramdisk="{{ramdisk.stdout}}"
+            --driver-info deploy_ramdisk="{{kernel}}"
             --driver-info deploy_kernel=a9a934a8-29d1-4932-8ecc-548c483ea577
       register: node1
     - debug: var=node1
