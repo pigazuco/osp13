@@ -9,10 +9,10 @@
 #        name: NetworkManager
 #        state: stopped
 #        enabled: no
-#- name: DEPLOY-UNDERCLOUD
-#  hosts: osp-director
-#  remote_user: stack
-#  gather_facts: no
+- name: DEPLOY-UNDERCLOUD
+  hosts: osp-director
+  remote_user: stack
+  gather_facts: no
 #  tasks:
 #    - name: RPM packages for overcloud
 #      command: "{{item}}"
