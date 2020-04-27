@@ -195,7 +195,8 @@
   gather_facts: no
   tasks:
     - name: Create containers
-      shell:
-         cmd: /opt/ciscoaci-tripleo-heat-templates/tools/build_openstack_aci_containers.py --upstream=registry.mad.lab:5000 --destregistry=192.168.24.1:8787ç
-         cmd: openstack role add --user admin --project service ResellerAdmin
-         cmd: openstack --os-project-name service object store account set --property Temp-URL-Key=$(uuidgen | sha1sum | awk '{print $1}')
+      command: "{{item}}"
+      with_items:
+        - /opt/ciscoaci-tripleo-heat-templates/tools/build_openstack_aci_containers.py --upstream=registry.mad.lab:5000 --destregistry=192.168.24.1:8787
+        - openstack role add --user admin --project service ResellerAdmin
+        - openstack --os-project-name service object store account set --property Temp-URL-Key=$(uuidgen | sha1sum | awk '{print $1}')
