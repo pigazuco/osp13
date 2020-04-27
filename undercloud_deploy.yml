@@ -65,10 +65,10 @@
       shell:
         cmd: openstack image list | grep bm-deploy-ramdisk | awk '{print $2}'
       register: ramdisk
-    - debug: stdout.ramdisk
+    - debug: var=ramdisk
   tasks:
     - name: Get KERNEL
       shell:
         cmd: openstack image list | grep bm-deploy-kernel | awk '{print $2}'
       register: kernel
-    - debug: stdout.kernel
+    - debug: msg="{{ kernel.stdout }}"
