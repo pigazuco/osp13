@@ -8,7 +8,7 @@
     - name: Create docker config
       command: echo "" >> /etc/systemd/system/docker.service.d/docker.conf
     - name:
-        lineinfile: Update docker service
+      lineinfile: Update docker service
         path: /etc/systemd/system/docker.service.d/docker.conf
         line: [Service]
     - name: Update docker service cont
