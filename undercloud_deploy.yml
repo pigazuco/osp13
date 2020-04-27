@@ -62,7 +62,7 @@
   gather_facts: no
   tasks:
     - name: Get RAMDISK
-      command: openstack image list
+      command: openstack image list 
 #      command: openstack image list | grep bm-deploy-ramdisk | awk '{print $2}'
       register: ramdisk
     - debug: var=ramdisk
