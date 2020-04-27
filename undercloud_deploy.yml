@@ -174,9 +174,9 @@
   tasks:
     - name: Update docker service
       shell:
-          cmd: echo '[Service]
-          ExecStart=
-          ExecStart=/usr/bin/dockerd' > /etc/systemd/system/docker.service.d/docker.conf
+        cmd: echo '[Service]
+        ExecStart=
+        ExecStart=/usr/bin/dockerd' > /etc/systemd/system/docker.service.d/docker.conf
     - name: Update docker service cont.
       command: "{{item}}"
       with_items:
