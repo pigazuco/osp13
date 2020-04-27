@@ -212,5 +212,4 @@
   tasks:
     - name: Openstack overcloud deploy
       shell:
-        cmd: time openstack overcloud deploy --templates
-        --roles-file ~/templates/aci_roles_data.yaml --environment-file ~/generated-openstack-tripleo-heat-templates/environments/network-isolation.yaml --environment-file ~/templates/network-environment-overrides.yaml --environment-file ~/templates/ciscoaci_containers.yaml --environment-file ~/templates/ciscoaci-env.yaml  --ntp-server 1.255.0.1
+        cmd: time openstack overcloud deploy --templates --roles-file ~/templates/aci_roles_data.yaml --environment-file ~/generated-openstack-tripleo-heat-templates/environments/network-isolation.yaml --environment-file ~/templates/network-environment-overrides.yaml --environment-file ~/templates/ciscoaci_containers.yaml --environment-file ~/templates/ciscoaci-env.yaml  --ntp-server 1.255.0.1
