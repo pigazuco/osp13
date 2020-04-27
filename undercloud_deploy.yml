@@ -40,8 +40,8 @@
       with_items:
         - openstack subnet set --dns-nameserver 1.255.0.1  ctlplane-subnet
     - name: Load Images
+      command: "{{item}}"
       with_items:
-    - name: Load Images
         - curl -O http://registry.mad.lab/osp13/images/ironic-python-agent.initramfs
         - curl -O http://registry.mad.lab/osp13/images/ironic-python-agent.kernel
         - curl -O http://registry.mad.lab/osp13/images/overcloud-full.initrd
