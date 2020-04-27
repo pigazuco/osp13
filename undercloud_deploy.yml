@@ -65,7 +65,7 @@
       shell:
         cmd: openstack image list | grep bm-deploy-ramdisk | awk '{print $2}'
       register: ramdisk
-    - debug: ramdisk=ramdisk
+    - debug: ramdisk="{{ramdisk.stdout}}"
   tasks:
     - name: Get kernel id
       shell:
