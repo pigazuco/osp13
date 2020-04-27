@@ -71,8 +71,7 @@
         cmd: openstack image list | grep bm-deploy-kernel | awk '{print $2}'
       register: kernel
     - set_fact:
-        kernel: "{{ kernel.stdout }}"
-
+        kernel: {{ kernel.stdout }}
   tasks:
     - name: Add node1
       shell:
