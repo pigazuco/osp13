@@ -59,7 +59,7 @@
 - name: IRONIC
   hosts: osp-director
   remote_user: stack
-  gather_facts: no
+  gather_facts: yes
   tasks:
     - name: Get ramdisk id
       shell:
