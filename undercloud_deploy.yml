@@ -65,10 +65,21 @@
       shell:
         cmd: openstack image list | grep bm-deploy-ramdisk | awk '{print $2}'
       register: ramdisk
-    - debug: msg="{{ ramdisk.stdout }}"
   tasks:
     - name: Get kernel id
       shell:
         cmd: openstack image list | grep bm-deploy-kernel | awk '{print $2}'
       register: kernel
-    - debug: msg="{{kernel.stdout}}"
+  tasks:
+    - name: Add node1
+      shell:
+        cmd: openstack baremetal node create --driver ipmi --name node1 --os-baremetal-api-version 1.31 \
+            --deploy-interface direct \
+            --driver-info ipmi_username=admin \
+            --driver-info ipmi_password=openstack \
+            --driver-info ipmi_address=srv1.mad.lab \
+            --driver-info ipmi_port=7011 \
+            --driver-info deploy_ramdisk={{ramdisk.stdout}} \
+            --driver-info deploy_kernel={{kernel.stdout}}
+      register: node1
+    - debug: var=node1
