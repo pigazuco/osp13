@@ -99,15 +99,15 @@
             --driver-info ipmi_port=7013
             --driver-info deploy_ramdisk={{ ramdisk.stdout }}
             --driver-info deploy_kernel={{ kernel.stdout }}
-    - name: Get ramdisk id 1
+    - name: Get node-id 1
       shell:
         cmd: openstack baremetal node list | grep node1 | awk '{print $2}'
       register: node_id1
-    - name: Get ramdisk id 2
+    - name: Get node-id 2
       shell:
         cmd: openstack baremetal node list | grep node2 | awk '{print $2}'
       register: node_id2
-    - name: Get ramdisk id 3
+    - name: Get node-id 3
       shell:
         cmd: openstack baremetal node list | grep node3 | awk '{print $2}'
       register: node_id3
