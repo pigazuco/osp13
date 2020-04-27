@@ -187,8 +187,8 @@
         - ln -s /usr/libexec/docker/docker-runc-current /usr/libexec/docker/docker-runc
         - sleep 3s
         - systemctl daemon-reload
-      - sleep 3s
-      - service docker restart
+        - sleep 3s
+        - service docker restart
 - name: Deploy cisco containers
   hosts: osp-director
   remote_user: stack
