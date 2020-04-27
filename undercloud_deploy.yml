@@ -116,10 +116,10 @@
         cmd: openstack baremetal port create 52:54:00:09:9b:a9 --node {{ node_id1.stdout }}
     - name: Assign port-mac to node2
       shell:
-        cmd: openstack baremetal port create 52:54:00:3c:42:a8 --node {{ node_id1.stdout }}
+        cmd: openstack baremetal port create 52:54:00:3c:42:a8 --node {{ node_id2.stdout }}
     - name: Assign port-mac to node3
       shell:
-        cmd: openstack baremetal port create 52:54:00:e3:1f:c7 --node {{ node_id1.stdout }}
+        cmd: openstack baremetal port create 52:54:00:e3:1f:c7 --node {{ node_id3.stdout }}
     - name: Manage all nodes
       shell:
         cmd: openstack baremetal node manage node1 && openstack baremetal node manage node2 && openstack baremetal node manage node3
