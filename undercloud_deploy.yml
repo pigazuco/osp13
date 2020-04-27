@@ -1,4 +1,32 @@
 ---
+- name: PREPARE DIRECTORY
+  hosts: osp-director
+  remote_user: stack
+  gather_facts: no
+  tasks:
+    - name: Copy deploy_project.yml
+      copy:
+        src: deploy_project.yml
+        dest: ~/deploy_project.yml
+        mode: '0774'
+    - name: Copy patch
+      copy:
+        src: patch.diff
+        dest: ~/patch.diff
+    - name: Download tripleo-ciscoaci-13.0-749.noarch.rpm
+      get_url:
+        url: http://registry.mad.lab/osp13/tripleo-ciscoaci-13.0-749.noarch.rpm
+        dest: ~/tripleo-ciscoaci-13.0-749.noarch.rpm
+    - name: Download deploy.tar
+      get_url:
+        url: http://registry.mad.lab/osp13/deploy.tar
+        dest: ~/deploy.tar
+    - name: Uncompress templates
+      command: tar -xf deploy.tar
+    - name: Patch keystone.yaml
+      command: sudo yum localinstall tripleo-ciscoaci-13.0-749.noarch.rpm -y
+    - name: copy cisco-aci-tripleo-heat-templates
+      command: cp -r /opt/ciscoaci-tripleo-heat-templates .
 - name: Deploy cisco containers
   hosts: osp-director
   remote_user: stack
