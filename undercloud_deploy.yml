@@ -6,7 +6,7 @@
   gather_facts: no
   tasks:
     - name: Create docker config
-      command: echo "" >> /etc/systemd/system/docker.service.d/docker.conf
+      command: touch /etc/systemd/system/docker.service.d/docker.conf
     - name:
       lineinfile: Update docker service
         path: /etc/systemd/system/docker.service.d/docker.conf
