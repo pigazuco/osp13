@@ -1,8 +1,8 @@
 ---
-#- name: PREPARE SERVER
-#  hosts: osp-director
-#  remote_user: root
-#  gather_facts: no
+- name: PREPARE SERVER
+  hosts: osp-director
+  remote_user: root
+  gather_facts: no
 #  tasks:
 #    - name: Disable NetworkManager
 #      systemd:
@@ -30,10 +30,10 @@
 #      lineinfile:
 #        path: ~/.bashrc
 #        line: source stackrc
-#- name: DEPLOY-UNDERCLOUD
-#  hosts: osp-director
-#  remote_user: stack
-#  gather_facts: no
+- name: DEPLOY-UNDERCLOUD
+  hosts: osp-director
+  remote_user: stack
+  gather_facts: no
 #  tasks:
 #    - name: UpdateDNS
 #      command: "{{item}}"
@@ -62,6 +62,7 @@
   gather_facts: no
   tasks:
     - name: Get RAMDISK
-      command: openstack image list | grep bm-deploy-ramdisk | awk '{print $2}'
+      command: openstack image list
+#      command: openstack image list | grep bm-deploy-ramdisk | awk '{print $2}'
       register: ramdisk
     - debug: var=ramdisk
