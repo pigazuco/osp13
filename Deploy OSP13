@@ -103,8 +103,6 @@ curl -O http://registry.mad.lab/osp13/patch.diff
 curl -O http://registry.mad.lab/osp13/tripleo-ciscoaci-13.0-749.noarch.rpm
 curl -O http://registry.mad.lab/osp13/deploy.tar
 tar -xf deploy.tar
-mv deploy/* .
-rmdir deploy
 sudo patch /usr/share/openstack-tripleo-heat-templates/docker/services/keystone.yaml < patch.diff
 rm templates/ciscoaci_containers.yaml
 sudo yum localinstall tripleo-ciscoaci-13.0-749.noarch.rpm -y
