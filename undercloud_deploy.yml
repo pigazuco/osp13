@@ -59,7 +59,7 @@
 - name: IRONIC
   hosts: osp-director
   remote_user: stack
-  gather_facts: no
+  gather_facts: yes
   tasks:
     - name: Get ramdisk id
       shell:
@@ -79,7 +79,7 @@
             --driver-info ipmi_password=openstack \
             --driver-info ipmi_address=srv1.mad.lab \
             --driver-info ipmi_port=7011 \
-            --driver-info deploy_ramdisk={{ramdisk.stdout}} \
-            --driver-info deploy_kernel={{kernel.stdout}}
+            --driver-info deploy_ramdisk=${ramdisk.stdout} \
+            --driver-info deploy_kernel=${kernel.stdout}
       register: node1
     - debug: var=node1
