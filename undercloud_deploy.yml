@@ -116,13 +116,25 @@
         cmd: openstack baremetal port create 52:54:00:09:9b:a9 --node {{ node_id1.stdout }}
     - name: Assign port-mac to node2
       shell:
-        cmd: openstack baremetal port create 52:54:00:09:9b:a9 --node {{ node_id1.stdout }}
+        cmd: openstack baremetal port create 52:54:00:3c:42:a8 --node {{ node_id1.stdout }}
     - name: Assign port-mac to node3
       shell:
-        cmd: openstack baremetal port create 52:54:00:09:9b:a9 --node {{ node_id1.stdout }}
+        cmd: openstack baremetal port create 52:54:00:e3:1f:c7 --node {{ node_id1.stdout }}
     - name: Manage all nodes
       shell:
         cmd: openstack baremetal node manage node1 && openstack baremetal node manage node2 && openstack baremetal node manage node3
     - name: Introspect all nodes
       shell:
         cmd: openstack overcloud node introspect --provide --all-manageable
+    - name: Set control profile
+      shell:
+        cmd: openstack baremetal node set --property capabilities='profile:control,boot_option:local' node1
+    - name: Set compute profile
+      shell:
+        cmd: openstack baremetal node set --property capabilities='profile:compute,boot_option:local' node2
+    - name: Set compute profile
+      shell:
+        cmd: openstack baremetal node set --property capabilities='profile:compute,boot_option:local' node3
+    - name: Set flavor for control
+      shell:
+        cmd: openstack flavor set --property ram=12288 control
