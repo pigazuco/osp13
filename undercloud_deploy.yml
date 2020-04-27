@@ -1,54 +1,4 @@
 ---
-- name: PREPARE DOCKER
-  hosts: osp-director
-  remote_user: root
-  gather_facts: no
-  tasks:
-    - name: Create docker service
-      lineinfile:
-        path: /etc/systemd/system/docker.service.d/docker.conf
-        line: [Service]
-        create: yes
-    - name: Update docker service cont
-      lineinfile:
-        path: /etc/systemd/system/docker.service.d/docker.conf
-        line: ExecStart=/usr/bin/dockerd
-    - name: Update docker service cont.
-      command: "{{item}}"
-      with_items:
-        - echo '{ "debug":true, "insecure-registries":["registry.mad.lab:5000","192.168.24.1:8787"] }' > /etc/docker/daemon.json
-        - ln -s /usr/libexec/docker/docker-runc-current /usr/libexec/docker/docker-runc
-        - sleep 3s
-        - systemctl daemon-reload
-        - sleep 3s
-        - service docker restart
-- name: Deploy cisco containers
-  hosts: osp-director
-  remote_user: stack
-  gather_facts: no
-  tasks:
-    - name: Create containers
-      command: "{{item}}"
-      with_items:
-        - /opt/ciscoaci-tripleo-heat-templates/tools/build_openstack_aci_containers.py --upstream=registry.mad.lab:5000 --destregistry=192.168.24.1:8787
-        - openstack role add --user admin --project service ResellerAdmin
-- name: Deploy Overcloud
-  hosts: osp-director
-  remote_user: stack
-  gather_facts: no
-  tasks:
-    - name: Openstack overcloud deploy
-      shell:
-        cmd: openstack --os-project-name service object store account set --property Temp-URL-Key=$(uuidgen | sha1sum | awk '{print $1}')
-- name: Deploy Overcloud
-  hosts: osp-director
-  remote_user: stack
-  gather_facts: no
-  tasks:
-    - name: Openstack overcloud deploy
-      shell:
-        cmd: time openstack overcloud deploy --templates --roles-file ~/templates/aci_roles_data.yaml --environment-file ~/generated-openstack-tripleo-heat-templates/environments/network-isolation.yaml --environment-file ~/templates/network-environment-overrides.yaml --environment-file ~/templates/ciscoaci_containers.yaml --environment-file ~/templates/ciscoaci-env.yaml  --ntp-server 1.255.0.1
-
 - name: PREPARE SERVER
   hosts: osp-director
   remote_user: root
@@ -215,3 +165,30 @@
       command: sudo yum localinstall tripleo-ciscoaci-13.0-749.noarch.rpm -y
     - name: copy cisco-aci-tripleo-heat-templates
       command: cp -r /opt/ciscoaci-tripleo-heat-templates .
+
+- name: Deploy cisco containers
+  hosts: osp-director
+  remote_user: stack
+  gather_facts: no
+  tasks:
+    - name: Create containers
+      command: "{{item}}"
+      with_items:
+        - /opt/ciscoaci-tripleo-heat-templates/tools/build_openstack_aci_containers.py --upstream=registry.mad.lab:5000 --destregistry=192.168.24.1:8787
+        - openstack role add --user admin --project service ResellerAdmin
+- name: Deploy Overcloud
+  hosts: osp-director
+  remote_user: stack
+  gather_facts: no
+  tasks:
+    - name: Openstack overcloud deploy
+      shell:
+        cmd: openstack --os-project-name service object store account set --property Temp-URL-Key=$(uuidgen | sha1sum | awk '{print $1}')
+- name: Deploy Overcloud
+  hosts: osp-director
+  remote_user: stack
+  gather_facts: no
+  tasks:
+    - name: Openstack overcloud deploy
+      shell:
+        cmd: time openstack overcloud deploy --templates --roles-file ~/templates/aci_roles_data.yaml --environment-file ~/generated-openstack-tripleo-heat-templates/environments/network-isolation.yaml --environment-file ~/templates/network-environment-overrides.yaml --environment-file ~/templates/ciscoaci_containers.yaml --environment-file ~/templates/ciscoaci-env.yaml  --ntp-server 1.255.0.1
