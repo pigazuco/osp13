@@ -79,5 +79,50 @@
             --driver-info ipmi_port=7011
             --driver-info deploy_ramdisk={{ ramdisk.stdout }}
             --driver-info deploy_kernel={{ kernel.stdout }}
-      register: node1
-    - debug: var=node1
+    - name: Add node2
+      shell:
+        cmd: openstack baremetal node create --driver ipmi --name node2 --os-baremetal-api-version 1.31
+            --deploy-interface direct
+            --driver-info ipmi_username=admin
+            --driver-info ipmi_password=openstack
+            --driver-info ipmi_address=srv1.mad.lab
+            --driver-info ipmi_port=7012
+            --driver-info deploy_ramdisk={{ ramdisk.stdout }}
+            --driver-info deploy_kernel={{ kernel.stdout }}
+    - name: Add node3
+      shell:
+        cmd: openstack baremetal node create --driver ipmi --name node3 --os-baremetal-api-version 1.31
+            --deploy-interface direct
+            --driver-info ipmi_username=admin
+            --driver-info ipmi_password=openstack
+            --driver-info ipmi_address=srv1.mad.lab
+            --driver-info ipmi_port=7013
+            --driver-info deploy_ramdisk={{ ramdisk.stdout }}
+            --driver-info deploy_kernel={{ kernel.stdout }}
+    - name: Get ramdisk id 1
+      shell:
+        cmd: openstack baremetal node list | grep node1 | awk '{print $2}'
+      register: node_id1
+    - name: Get ramdisk id 2
+      shell:
+        cmd: openstack baremetal node list | grep node2 | awk '{print $2}'
+      register: node_id2
+    - name: Get ramdisk id 3
+      shell:
+        cmd: openstack baremetal node list | grep node3 | awk '{print $2}'
+      register: node_id3
+    - name: Assign port-mac to node1
+      shell:
+        cmd: openstack baremetal port create 52:54:00:09:9b:a9 --node {{ node_id1.stdout }}
+    - name: Assign port-mac to node2
+      shell:
+        cmd: openstack baremetal port create 52:54:00:09:9b:a9 --node {{ node_id1.stdout }}
+    - name: Assign port-mac to node3
+      shell:
+        cmd: openstack baremetal port create 52:54:00:09:9b:a9 --node {{ node_id1.stdout }}
+    - name: Manage all nodes
+      shell:
+        cmd: openstack baremetal node manage node1 && openstack baremetal node manage node2 && openstack baremetal node manage node3
+    - name: Introspect all nodes
+      shell:
+        cmd: openstack overcloud node introspect --provide --all-manageable
