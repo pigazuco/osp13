@@ -173,10 +173,13 @@
   gather_facts: no
   tasks:
     - name: Update docker service
-      shell:
-        cmd: echo '[Service]
-        ExecStart=
-        ExecStart=/usr/bin/dockerd' > /etc/systemd/system/docker.service.d/docker.conf
+      lineinfile:
+        path: /etc/systemd/system/docker.service.d/docker.conf
+        line: [Service]
+    - name: Update docker service cont
+      lineinfile:
+        path: /etc/systemd/system/docker.service.d/docker.conf
+        line: ExecStart=/usr/bin/dockerd
     - name: Update docker service cont.
       command: "{{item}}"
       with_items:
