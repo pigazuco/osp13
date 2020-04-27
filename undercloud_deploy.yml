@@ -146,12 +146,12 @@
   tasks:
     - name: Copy deploy_project.yml
       copy:
-        src: ~/deploy_project.yml
+        src: deploy_project.yml
         dest: ~/deploy_project.yml
         mode: '0774'
     - name: Copy patch
       copy:
-        src: ~/patch.diff
+        src: patch.diff
         dest: ~/patch.diff
     - name: Download tripleo-ciscoaci-13.0-749.noarch.rpm
       get_url:
@@ -163,7 +163,7 @@
         dest: ~/deploy.tar
     - name: Uncompress templates
       unarchive:
-        src: ~/deploy.tar
+        src: deploy.tar
         dest: ~/
     - name: Patch keystone.yaml
       shell:
