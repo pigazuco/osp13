@@ -1,0 +1,34 @@
+---
+- name: Deploy project
+  hosts: osp-director
+  remote_user: stack
+  gather_facts: no
+  vars_prompt:
+    - name: "project"
+      prompt: "CISCO"
+      default: "CISCO"
+      private: no
+  tasks:
+    - name: Create project
+      command: "{{item}}"
+      with_items:
+        - "openstack project create --description {{project}} {{project}}"
+        - "openstack role add --user admin --project {{project}} admin"
+  environment:
+    OS_PROJECT_NAME: "{{project}}"
+  tasks:
+    - name: Create objects
+      command: "{{item}}"
+      with_items:
+        - "openstack network create {{project}}-NET10"
+        - "openstack subnet create --network {{project}}-NET10 --subnet-range 10.0.0.0/24 {{project}}-SUBNET10"
+        - "openstack router create {{project}}-ROUTER"
+        - "openstack router add subnet {{project}}-ROUTER {{project}}-SUBNET10"
+        - "openstack security group create {{project}}-SECURITY-GROUP --project {{project}}"
+        - "openstack security group rule create --proto tcp --dst-port 22 {{project}}-SECURITY-GROUP"
+        - "openstack security group rule create --proto icmp {{project}}-SECURITY-GROUP --project {{project}}"
+        - "openstack server create --security-group {{project}}-SECURITY-GROUP --flavor small --image cirros --nic net-id={{project}}-NET10 {{project}}-1"
+        - "openstack server create --security-group {{project}}-SECURITY-GROUP --flavor small --image cirros --nic net-id={{project}}-NET10 {{project}}-2"
+        - "openstack router set --external-gateway L3OUT_AIBARRIO  {{project}}-ROUTER"
+#openstack floating ip create L3OUT_AIBARRIO
+#openstack server add floating ip <server> <ip>
