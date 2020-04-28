@@ -1,8 +1,8 @@
 #!/bin/bash
+        mkdir /tmp/rpms
 for line in `cat rpms.txt`
 do
         echo " Descargando $line"
-        mkdir /tmp/rpms
         yum_output=$(yumdownloader --destdir=/tmp/rpms/ $line)
         if [ $? -ne 0 ];then
                 echo "File $line was not found"
