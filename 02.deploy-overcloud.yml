@@ -34,7 +34,7 @@
       copy:
         src: files/patch.diff
         dest: ~/patch.diff
-    - name: Patch
+    - name: Patch keystone.yaml
       command: sudo patch /usr/share/openstack-tripleo-heat-templates/docker/services/keystone.yaml < patch.diff
     - name: Download tripleo-ciscoaci-13.0-749.noarch.rpm
       get_url:
