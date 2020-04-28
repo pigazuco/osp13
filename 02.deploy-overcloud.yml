@@ -1,5 +1,5 @@
 ---
-- name: PREPARE DOCKER
+- name: PREPARE DOCKER # For allow insecure HTTP
   hosts: osp-director
   remote_user: root
   gather_facts: no
