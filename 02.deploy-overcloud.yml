@@ -50,7 +50,7 @@
       command: cp -r /opt/ciscoaci-tripleo-heat-templates .
     - pause:
         prompt: "Press key"
-- name: Deploy cisco containers
+- name: DEPLOY CISCO CONTAINERS
   hosts: osp-director
   remote_user: stack
   gather_facts: no
@@ -60,13 +60,6 @@
       with_items:
         - /opt/ciscoaci-tripleo-heat-templates/tools/build_openstack_aci_containers.py --upstream=registry.mad.lab:5000 --destregistry=192.168.24.1:8787
         - openstack role add --user admin --project service ResellerAdmin
-    - pause:
-        prompt: "Press key"
-- name: Deploy Overcloud
-  hosts: osp-director
-  remote_user: stack
-  gather_facts: no
-  tasks:
     - name: Openstack temp-url-key
       shell:
         cmd: openstack --os-project-name service object store account set --property Temp-URL-Key=$(uuidgen | sha1sum | awk '{print $1}')
