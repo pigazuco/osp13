@@ -27,6 +27,8 @@
       command: sudo yum localinstall tripleo-ciscoaci-13.0-749.noarch.rpm -y
     - name: copy cisco-aci-tripleo-heat-templates
       command: cp -r /opt/ciscoaci-tripleo-heat-templates .
+    - pause:
+        prompt: "Press key"
 - name: Deploy cisco containers
   hosts: osp-director
   remote_user: stack
@@ -37,6 +39,8 @@
       with_items:
         - /opt/ciscoaci-tripleo-heat-templates/tools/build_openstack_aci_containers.py --upstream=registry.mad.lab:5000 --destregistry=192.168.24.1:8787
         - openstack role add --user admin --project service ResellerAdmin
+    - pause:
+        prompt: "Press key"
 - name: Deploy Overcloud
   hosts: osp-director
   remote_user: stack
@@ -45,6 +49,8 @@
     - name: Openstack overcloud deploy
       shell:
         cmd: openstack --os-project-name service object store account set --property Temp-URL-Key=$(uuidgen | sha1sum | awk '{print $1}')
+    - pause:
+        prompt: "Press key"
 - name: Deploy Overcloud
   hosts: osp-director
   remote_user: stack
