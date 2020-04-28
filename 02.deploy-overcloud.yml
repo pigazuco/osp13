@@ -14,6 +14,8 @@
         src: files/docker.conf
         dest: /etc/systemd/system/docker.service.d/docker.conf
         force: yes
+    - name: Creating symbolic link
+      command: ln -s /usr/libexec/docker/docker-runc-current /usr/libexec/docker/docker-runc
     - name: Restart systemctl daemon
       command: systemctl daemon-reload
     - name: Restart docker
