@@ -14,3 +14,7 @@
             src: files/docker.conf
             dest: /etc/systemd/system/docker.service.d/docker.conf
             force: yes
+        - name: Restart systemctl daemon
+          command: systemctl daemon-reload
+        - name: Restart docker
+          command: service docker restart
