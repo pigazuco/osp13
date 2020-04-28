@@ -12,6 +12,6 @@
     - name: Create External Network
       command: neutron net-create L3OUT_AIBARRIO --router:external True --shared --apic:distinguished_names type=dict ExternalNetwork=uni/tn-common/out-L3OUT_AIBARRIO/instP-ANY
     - name: Create SNAT
-      command: neutron subnet-create L3OUT_AIBARRIO 172.16.0.0/24 --name SNAT --disable-dhcp --gateway 172.16.0.1 --apic:snat_host_pool True
+      command: neutron subnet-create L3OUT_AIBARRIO 1.2.6.0/24 --name SNAT --disable-dhcp --gateway 1.2.6.1 --apic:snat_host_pool True
     - name: Create FIP
-      command: openstack subnet create --subnet-range 172.16.1.0/24 --no-dhcp --gateway 172.16.1.1 --network L3OUT_AIBARRIO FIP
+      command: openstack subnet create --subnet-range 1.2.7.0/24 --no-dhcp --gateway 1.2.7.1 --network L3OUT_AIBARRIO FIP
