@@ -67,7 +67,7 @@
   remote_user: stack
   gather_facts: no
   tasks:
-    - name: Openstack overcloud deploy
+    - name: Openstack temp-url-key
       shell:
         cmd: openstack --os-project-name service object store account set --property Temp-URL-Key=$(uuidgen | sha1sum | awk '{print $1}')
     - pause:
