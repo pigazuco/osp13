@@ -4,7 +4,7 @@
       gather_facts: no
       vars_prompt:
         - name: "rollback"
-          prompt: "01-empty"
+          prompt: "01-empty, 02-undercloud"
           default: "01"
           private: no
       tasks:
