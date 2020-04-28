@@ -1,0 +1,56 @@
+---
+    - name: PREPARE DIRECTORY
+      hosts: osp-director
+      remote_user: stack
+      gather_facts: no
+      tasks:
+        - name: Copy deploy_project.yml
+          copy:
+            src: deploy_project.yml
+            dest: ~/deploy_project.yml
+            mode: '0774'
+        - name: Copy patch
+          copy:
+            src: patch.diff
+            dest: ~/patch.diff
+        - name: Download tripleo-ciscoaci-13.0-749.noarch.rpm
+          get_url:
+            url: http://registry.mad.lab/osp13/tripleo-ciscoaci-13.0-749.noarch.rpm
+            dest: ~/tripleo-ciscoaci-13.0-749.noarch.rpm
+        - name: Download deploy.tar
+          get_url:
+            url: http://registry.mad.lab/osp13/deploy.tar
+            dest: ~/deploy.tar
+        - name: Uncompress templates
+          command: tar -xf deploy.tar
+        - name: Patch keystone.yaml
+          command: sudo yum localinstall tripleo-ciscoaci-13.0-749.noarch.rpm -y
+        - name: copy cisco-aci-tripleo-heat-templates
+          command: cp -r /opt/ciscoaci-tripleo-heat-templates .
+    - name: Deploy cisco containers
+      hosts: osp-director
+      remote_user: stack
+      gather_facts: no
+      tasks:
+        - name: Create containers
+          command: "{{item}}"
+          with_items:
+            - /opt/ciscoaci-tripleo-heat-templates/tools/build_openstack_aci_containers.py --upstream=registry.mad.lab:5000 --destregistry=192.168.24.1:8787
+            - openstack role add --user admin --project service ResellerAdmin
+    - name: Deploy Overcloud
+      hosts: osp-director
+      remote_user: stack
+      gather_facts: no
+      tasks:
+        - name: Openstack overcloud deploy
+          shell:
+            cmd: openstack --os-project-name service object store account set --property Temp-URL-Key=$(uuidgen | sha1sum | awk '{print $1}')
+    - name: Deploy Overcloud
+      hosts: osp-director
+      remote_user: stack
+      gather_facts: no
+      tasks:
+        - name: Openstack overcloud deploy
+          shell:
+            cmd: time openstack overcloud deploy --templates --roles-file ~/templates/aci_roles_data.yaml --environment-file ~/generated-openstack-tripleo-heat-templates/environments/network-isolation.yaml --environment-file ~/templates/network-environment-overrides.yaml --environment-file ~/templates/ciscoaci_containers.yaml --environment-file ~/templates/ciscoaci-env.yaml  --ntp-server 1.255.0.1
+    
