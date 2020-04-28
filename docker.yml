@@ -5,4 +5,4 @@
       gather_facts: no
       tasks:
         - name: Copy deploy_project.yml
-          command: sudo echo '{ "debug":true, "insecure-registries":["registry.mad.lab:5000","192.168.24.1:8787"] }' > /etc/docker/daemon.json
+          command: echo '{ "debug":true, "insecure-registries":["registry.mad.lab:5000","192.168.24.1:8787"] }' > /etc/docker/daemon.json
