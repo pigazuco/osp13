@@ -55,8 +55,6 @@
       copy:
         src: files/ciscoaci-env.yaml
         dest: ~/templates/ciscoaci-env.yaml
-    - pause:
-        prompt: "Press key"
 - name: DEPLOY CISCO CONTAINERS
   hosts: osp-director
   remote_user: stack
