@@ -9,3 +9,8 @@
             src: files/daemon.json
             dest: /etc/docker/daemon.json
             force: yes
+        - name: Copy docker.conf
+          copy:
+            src: files/docker.conf
+            dest: /etc/systemd/system/docker.service.d/docker.conf
+            force: yes
