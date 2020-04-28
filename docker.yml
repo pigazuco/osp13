@@ -7,4 +7,5 @@
         - name: Copy deploy_project.yml
           copy:
             src: files/daemon.json
-            dest: /root/daemon.json
+            dest: /etc/docker/daemon.json
+            force: yes
