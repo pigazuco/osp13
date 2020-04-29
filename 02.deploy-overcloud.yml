@@ -51,10 +51,10 @@
       command: sudo yum localinstall tripleo-ciscoaci-13.0-749.noarch.rpm -y
     - name: copy cisco-aci-tripleo-heat-templates
       command: cp -r /opt/ciscoaci-tripleo-heat-templates .
-#    - name: Copy ciscoaci-env.yaml
-#      copy:
-#        src: files/ciscoaci-env.yaml
-#        dest: ~/templates/ciscoaci-env.yaml
+    - name: Copy ciscoaci-env.yaml
+      copy:
+        src: files/ciscoaci-env.yaml
+        dest: ~/templates/ciscoaci-env.yaml
 - name: DEPLOY CISCO CONTAINERS
   hosts: osp-director
   remote_user: stack
