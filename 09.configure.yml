@@ -16,3 +16,5 @@
       command: neutron subnet-create L3OUT_AIBARRIO 1.2.6.0/24 --name SNAT --disable-dhcp --gateway 1.2.6.1 --apic:snat_host_pool True
     - name: Create FIP
       command: openstack subnet create --subnet-range 1.2.7.0/24 --no-dhcp --gateway 1.2.7.1 --network L3OUT_AIBARRIO FIP
+    - name: Delete cirros
+      command: rm -rf cirros-0.4.0-x86_64-disk.img
