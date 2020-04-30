@@ -1,152 +1,5 @@
-Last login: Thu Apr 30 08:43:01 2020 from 1.1.1.3
-[root@osp-director ~]# 
-[root@osp-director ~]# su - stack
-Last login: Thu Apr 30 08:44:15 CEST 2020 from 1.1.1.3 on pts/2
-(overcloud) stack@osp-director:~$ date && ./add.sh CISCO
-Thu Apr 30 08:45:31 CEST 2020
-Creando project CISCO
-Creando CISCO project
-+-------------+----------------------------------+
-| Field       | Value                            |
-+-------------+----------------------------------+
-| description | CISCO                            |
-| domain_id   | default                          |
-| enabled     | True                             |
-| id          | 46164c3ea202429badc808148be70a3d |
-| is_domain   | False                            |
-| name        | CISCO                            |
-| parent_id   | default                          |
-| tags        | []                               |
-+-------------+----------------------------------+
-+---------------------------+--------------------------------------+
-| Field                     | Value                                |
-+---------------------------+--------------------------------------+
-| admin_state_up            | UP                                   |
-| availability_zone_hints   |                                      |
-| availability_zones        |                                      |
-| created_at                | 2020-04-30T06:46:41Z                 |
-| description               |                                      |
-| dns_domain                | None                                 |
-| id                        | fa5857b1-9a1c-49de-9241-1ba317a25cfc |
-| ipv4_address_scope        | None                                 |
-| ipv6_address_scope        | None                                 |
-| is_default                | False                                |
-| is_vlan_transparent       | None                                 |
-| mtu                       | 9000                                 |
-| name                      | CISCO-NET10                          |
-| port_security_enabled     | True                                 |
-| project_id                | 46164c3ea202429badc808148be70a3d     |
-| provider:network_type     | opflex                               |
-| provider:physical_network | physnet1                             |
-| provider:segmentation_id  | None                                 |
-| qos_policy_id             | None                                 |
-| revision_number           | 3                                    |
-| router:external           | Internal                             |
-| segments                  | None                                 |
-| shared                    | False                                |
-| status                    | ACTIVE                               |
-| subnets                   |                                      |
-| tags                      |                                      |
-| updated_at                | 2020-04-30T06:46:41Z                 |
-+---------------------------+--------------------------------------+
-+-------------------+--------------------------------------+
-| Field             | Value                                |
-+-------------------+--------------------------------------+
-| allocation_pools  | 10.0.0.2-10.0.0.254                  |
-| cidr              | 10.0.0.0/24                          |
-| created_at        | 2020-04-30T06:46:48Z                 |
-| description       |                                      |
-| dns_nameservers   |                                      |
-| enable_dhcp       | True                                 |
-| gateway_ip        | 10.0.0.1                             |
-| host_routes       |                                      |
-| id                | 7b87314e-3536-4d3b-a2ba-356fa34aa7d7 |
-| ip_version        | 4                                    |
-| ipv6_address_mode | None                                 |
-| ipv6_ra_mode      | None                                 |
-| name              | CISCO-SUBNET10                       |
-| network_id        | fa5857b1-9a1c-49de-9241-1ba317a25cfc |
-| prefix_length     | None                                 |
-| project_id        | 46164c3ea202429badc808148be70a3d     |
-| revision_number   | 0                                    |
-| segment_id        | None                                 |
-| service_types     |                                      |
-| subnetpool_id     | None                                 |
-| tags              |                                      |
-| updated_at        | 2020-04-30T06:46:48Z                 |
-+-------------------+--------------------------------------+
-+-------------------------+--------------------------------------+
-| Field                   | Value                                |
-+-------------------------+--------------------------------------+
-| admin_state_up          | UP                                   |
-| availability_zone_hints | None                                 |
-| availability_zones      | None                                 |
-| created_at              | 2020-04-30T06:46:53Z                 |
-| description             |                                      |
-| distributed             | False                                |
-| external_gateway_info   | None                                 |
-| flavor_id               | None                                 |
-| ha                      | False                                |
-| id                      | b5034d25-e3cb-49c5-a9c0-4e63620e1765 |
-| name                    | CISCO-ROUTER                         |
-| project_id              | 46164c3ea202429badc808148be70a3d     |
-| revision_number         | 0                                    |
-| routes                  |                                      |
-| status                  | ACTIVE                               |
-| tags                    |                                      |
-| updated_at              | 2020-04-30T06:46:53Z                 |
-+-------------------------+--------------------------------------+
-+-----------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Field           | Value                                                                                                                                                 |
-+-----------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
-| created_at      | 2020-04-30T06:47:08Z                                                                                                                                  |
-| description     | CISCO-SECURITY-GROUP                                                                                                                                  |
-| id              | 1a95b061-81f9-43c6-8da9-d3858ae4a03a                                                                                                                  |
-| name            | CISCO-SECURITY-GROUP                                                                                                                                  |
-| project_id      | 46164c3ea202429badc808148be70a3d                                                                                                                      |
-| revision_number | 2                                                                                                                                                     |
-| rules           | created_at='2020-04-30T06:47:08Z', direction='egress', ethertype='IPv4', id='815b03db-9869-4414-aed7-a82050a2eea6', updated_at='2020-04-30T06:47:08Z' |
-|                 | created_at='2020-04-30T06:47:08Z', direction='egress', ethertype='IPv6', id='c5b64793-e150-4819-b81c-2beaa8c97d0a', updated_at='2020-04-30T06:47:08Z' |
-| updated_at      | 2020-04-30T06:47:08Z                                                                                                                                  |
-+-----------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
-+-------------------+--------------------------------------+
-| Field             | Value                                |
-+-------------------+--------------------------------------+
-| created_at        | 2020-04-30T06:47:12Z                 |
-| description       | None                                 |
-| direction         | ingress                              |
-| ether_type        | IPv4                                 |
-| id                | be31f9e2-3019-4a29-a225-15ef0eeee566 |
-| name              | None                                 |
-| port_range_max    | 22                                   |
-| port_range_min    | 22                                   |
-| project_id        | 46164c3ea202429badc808148be70a3d     |
-| protocol          | tcp                                  |
-| remote_group_id   | None                                 |
-| remote_ip_prefix  | 0.0.0.0/0                            |
-| revision_number   | 0                                    |
-| security_group_id | 1a95b061-81f9-43c6-8da9-d3858ae4a03a |
-| updated_at        | 2020-04-30T06:47:12Z                 |
-+-------------------+--------------------------------------+
-+-------------------+--------------------------------------+
-| Field             | Value                                |
-+-------------------+--------------------------------------+
-| created_at        | 2020-04-30T06:47:18Z                 |
-| description       | None                                 |
-| direction         | ingress                              |
-| ether_type        | IPv4                                 |
-| id                | 685937db-7163-487c-9c48-36c839070e31 |
-| name              | None                                 |
-| port_range_max    | None                                 |
-| port_range_min    | None                                 |
-| project_id        | 46164c3ea202429badc808148be70a3d     |
-| protocol          | icmp                                 |
-| remote_group_id   | None                                 |
-| remote_ip_prefix  | 0.0.0.0/0                            |
-| revision_number   | 0                                    |
-| security_group_id | 1a95b061-81f9-43c6-8da9-d3858ae4a03a |
-| updated_at        | 2020-04-30T06:47:18Z                 |
-+-------------------+--------------------------------------+
+(CISCO) stack@osp-director:~$ date && openstack server create --security-group CISCO-SECURITY-GROUP --flavor small --image cirros --nic net-id=CISCO-NET10 CISCO-SERVER          
+Thu Apr 30 10:00:26 CEST 2020
 +-------------------------------------+-----------------------------------------------+
 | Field                               | Value                                         |
 +-------------------------------------+-----------------------------------------------+
@@ -163,21 +16,84 @@ Creando CISCO project
 | accessIPv4                          |                                               |
 | accessIPv6                          |                                               |
 | addresses                           |                                               |
-| adminPass                           | 6dJuZ8YiJdrb                                  |
+| adminPass                           | qYyt6CApXA7P                                  |
 | config_drive                        |                                               |
-| created                             | 2020-04-30T06:47:34Z                          |
-| flavor                              | small (c7aad3cc-7ba4-461f-8678-3936cb56ffd6)  |
+| created                             | 2020-04-30T08:01:34Z                          |
+| flavor                              | small (50b20797-dafc-4f53-9748-43d5f96f16aa)  |
 | hostId                              |                                               |
-| id                                  | b3019387-94aa-43e6-91af-f2f62f66c370          |
-| image                               | cirros (29a4a7be-3e0f-4c82-b698-1dcb9809a13a) |
+| id                                  | eee5ccd0-415f-4524-a930-aeb922f9a6e4          |
+| image                               | cirros (afa0fde6-928e-44b8-83fd-62b94760917a) |
 | key_name                            | None                                          |
-| name                                | CISCO-1                                       |
+| name                                | CISCO-SERVER                                  |
 | progress                            | 0                                             |
-| project_id                          | 46164c3ea202429badc808148be70a3d              |
+| project_id                          | 24e910fc840546dbaa3673824e893238              |
 | properties                          |                                               |
-| security_groups                     | name='1a95b061-81f9-43c6-8da9-d3858ae4a03a'   |
+| security_groups                     | name='c8524aa9-1f62-4a54-8397-06783b4b13fa'   |
 | status                              | BUILD                                         |
-| updated                             | 2020-04-30T06:47:56Z                          |
+| updated                             | 2020-04-30T08:01:34Z                          |
 | user_id                             | 5f39d34a51e24fe69dd7874223075cd2              |
 | volumes_attached                    |                                               |
 +-------------------------------------+-----------------------------------------------+
+(CISCO) stack@osp-director:~$ openstack server show CISCO-SERVER
++-------------------------------------+----------------------------------------------------------+
+| Field                               | Value                                                    |
++-------------------------------------+----------------------------------------------------------+
+| OS-DCF:diskConfig                   | MANUAL                                                   |
+| OS-EXT-AZ:availability_zone         | nova                                                     |
+| OS-EXT-SRV-ATTR:host                | overcloud-novacompute-0.localdomain                      |
+| OS-EXT-SRV-ATTR:hypervisor_hostname | overcloud-novacompute-0.localdomain                      |
+| OS-EXT-SRV-ATTR:instance_name       | instance-00000002                                        |
+| OS-EXT-STS:power_state              | Running                                                  |
+| OS-EXT-STS:task_state               | None                                                     |
+| OS-EXT-STS:vm_state                 | active                                                   |
+| OS-SRV-USG:launched_at              | 2020-04-30T08:01:50.000000                               |
+| OS-SRV-USG:terminated_at            | None                                                     |
+| accessIPv4                          |                                                          |
+| accessIPv6                          |                                                          |
+| addresses                           | CISCO-NET10=10.0.0.11                                    |
+| config_drive                        |                                                          |
+| created                             | 2020-04-30T08:01:34Z                                     |
+| flavor                              | small (50b20797-dafc-4f53-9748-43d5f96f16aa)             |
+| hostId                              | e9baa954dcb4e970f0b303bbc4ab661bbdc807876e9d987b66ad896c |
+| id                                  | eee5ccd0-415f-4524-a930-aeb922f9a6e4                     |
+| image                               | cirros (afa0fde6-928e-44b8-83fd-62b94760917a)            |
+| key_name                            | None                                                     |
+| name                                | CISCO-SERVER                                             |
+| progress                            | 0                                                        |
+| project_id                          | 24e910fc840546dbaa3673824e893238                         |
+| properties                          |                                                          |
+| security_groups                     | name='CISCO-SECURITY-GROUP'                              |
+| status                              | ACTIVE                                                   |
+| updated                             | 2020-04-30T08:01:50Z                                     |
+| user_id                             | 5f39d34a51e24fe69dd7874223075cd2                         |
+| volumes_attached                    |                                                          |
++-------------------------------------+----------------------------------------------------------+
+(CISCO) stack@osp-director:~$ openstack port list
++--------------------------------------+------+-------------------+--------------------------------------------------------------------------+--------+
+| ID                                   | Name | MAC Address       | Fixed IP Addresses                                                       | Status |
++--------------------------------------+------+-------------------+--------------------------------------------------------------------------+--------+
+| 41e5150f-baa0-4be0-8333-3f4724164bf7 |      | fa:16:3e:0f:b9:b0 | ip_address='10.0.0.11', subnet_id='b1b93b97-9eeb-409c-a631-ed946f9bf4de' | ACTIVE |
+| 4e519e8d-bfbf-42c0-905e-e449b7a88e62 |      | fa:16:3e:f3:9d:b9 | ip_address='10.0.0.2', subnet_id='b1b93b97-9eeb-409c-a631-ed946f9bf4de'  | ACTIVE |
++--------------------------------------+------+-------------------+--------------------------------------------------------------------------+--------+
+(CISCO) stack@osp-director:~$ openstack network list
++--------------------------------------+----------------+----------------------------------------------------------------------------+
+| ID                                   | Name           | Subnets                                                                    |
++--------------------------------------+----------------+----------------------------------------------------------------------------+
+| c814173b-bd4a-4a27-a08f-8938b0c2981a | CISCO-NET10    | b1b93b97-9eeb-409c-a631-ed946f9bf4de                                       |
+| e63d4d8a-ded6-49c3-bb54-8e784f878187 | L3OUT_AIBARRIO | 98f76d2b-9542-4840-a66b-7a5acc6a045b, eccb5b57-3268-44fd-9008-79c29cae0eec |
++--------------------------------------+----------------+----------------------------------------------------------------------------+
+(CISCO) stack@osp-director:~$ openstack subnet list
++--------------------------------------+----------------+--------------------------------------+-------------+
+| ID                                   | Name           | Network                              | Subnet      |
++--------------------------------------+----------------+--------------------------------------+-------------+
+| 98f76d2b-9542-4840-a66b-7a5acc6a045b | FIP            | e63d4d8a-ded6-49c3-bb54-8e784f878187 | 1.2.7.0/24  |
+| b1b93b97-9eeb-409c-a631-ed946f9bf4de | CISCO-SUBNET10 | c814173b-bd4a-4a27-a08f-8938b0c2981a | 10.0.0.0/24 |
+| eccb5b57-3268-44fd-9008-79c29cae0eec | SNAT           | e63d4d8a-ded6-49c3-bb54-8e784f878187 | 1.2.6.0/24  |
++--------------------------------------+----------------+--------------------------------------+-------------+
+(CISCO) stack@osp-director:~$ openstack router list
++--------------------------------------+--------------+--------+-------+-------------+-------+----------------------------------+
+| ID                                   | Name         | Status | State | Distributed | HA    | Project                          |
++--------------------------------------+--------------+--------+-------+-------------+-------+----------------------------------+
+| 26902ae4-cb47-42fa-82a9-f338798332c2 | CISCO-ROUTER | ACTIVE | UP    | False       | False | 24e910fc840546dbaa3673824e893238 |
++--------------------------------------+--------------+--------+-------+-------------+-------+----------------------------------+
+(CISCO) stack@osp-director:~$
