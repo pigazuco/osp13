@@ -1,0 +1,183 @@
+Last login: Thu Apr 30 08:43:01 2020 from 1.1.1.3
+[root@osp-director ~]# 
+[root@osp-director ~]# su - stack
+Last login: Thu Apr 30 08:44:15 CEST 2020 from 1.1.1.3 on pts/2
+(overcloud) stack@osp-director:~$ date && ./add.sh CISCO
+Thu Apr 30 08:45:31 CEST 2020
+Creando project CISCO
+Creando CISCO project
++-------------+----------------------------------+
+| Field       | Value                            |
++-------------+----------------------------------+
+| description | CISCO                            |
+| domain_id   | default                          |
+| enabled     | True                             |
+| id          | 46164c3ea202429badc808148be70a3d |
+| is_domain   | False                            |
+| name        | CISCO                            |
+| parent_id   | default                          |
+| tags        | []                               |
++-------------+----------------------------------+
++---------------------------+--------------------------------------+
+| Field                     | Value                                |
++---------------------------+--------------------------------------+
+| admin_state_up            | UP                                   |
+| availability_zone_hints   |                                      |
+| availability_zones        |                                      |
+| created_at                | 2020-04-30T06:46:41Z                 |
+| description               |                                      |
+| dns_domain                | None                                 |
+| id                        | fa5857b1-9a1c-49de-9241-1ba317a25cfc |
+| ipv4_address_scope        | None                                 |
+| ipv6_address_scope        | None                                 |
+| is_default                | False                                |
+| is_vlan_transparent       | None                                 |
+| mtu                       | 9000                                 |
+| name                      | CISCO-NET10                          |
+| port_security_enabled     | True                                 |
+| project_id                | 46164c3ea202429badc808148be70a3d     |
+| provider:network_type     | opflex                               |
+| provider:physical_network | physnet1                             |
+| provider:segmentation_id  | None                                 |
+| qos_policy_id             | None                                 |
+| revision_number           | 3                                    |
+| router:external           | Internal                             |
+| segments                  | None                                 |
+| shared                    | False                                |
+| status                    | ACTIVE                               |
+| subnets                   |                                      |
+| tags                      |                                      |
+| updated_at                | 2020-04-30T06:46:41Z                 |
++---------------------------+--------------------------------------+
++-------------------+--------------------------------------+
+| Field             | Value                                |
++-------------------+--------------------------------------+
+| allocation_pools  | 10.0.0.2-10.0.0.254                  |
+| cidr              | 10.0.0.0/24                          |
+| created_at        | 2020-04-30T06:46:48Z                 |
+| description       |                                      |
+| dns_nameservers   |                                      |
+| enable_dhcp       | True                                 |
+| gateway_ip        | 10.0.0.1                             |
+| host_routes       |                                      |
+| id                | 7b87314e-3536-4d3b-a2ba-356fa34aa7d7 |
+| ip_version        | 4                                    |
+| ipv6_address_mode | None                                 |
+| ipv6_ra_mode      | None                                 |
+| name              | CISCO-SUBNET10                       |
+| network_id        | fa5857b1-9a1c-49de-9241-1ba317a25cfc |
+| prefix_length     | None                                 |
+| project_id        | 46164c3ea202429badc808148be70a3d     |
+| revision_number   | 0                                    |
+| segment_id        | None                                 |
+| service_types     |                                      |
+| subnetpool_id     | None                                 |
+| tags              |                                      |
+| updated_at        | 2020-04-30T06:46:48Z                 |
++-------------------+--------------------------------------+
++-------------------------+--------------------------------------+
+| Field                   | Value                                |
++-------------------------+--------------------------------------+
+| admin_state_up          | UP                                   |
+| availability_zone_hints | None                                 |
+| availability_zones      | None                                 |
+| created_at              | 2020-04-30T06:46:53Z                 |
+| description             |                                      |
+| distributed             | False                                |
+| external_gateway_info   | None                                 |
+| flavor_id               | None                                 |
+| ha                      | False                                |
+| id                      | b5034d25-e3cb-49c5-a9c0-4e63620e1765 |
+| name                    | CISCO-ROUTER                         |
+| project_id              | 46164c3ea202429badc808148be70a3d     |
+| revision_number         | 0                                    |
+| routes                  |                                      |
+| status                  | ACTIVE                               |
+| tags                    |                                      |
+| updated_at              | 2020-04-30T06:46:53Z                 |
++-------------------------+--------------------------------------+
++-----------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Field           | Value                                                                                                                                                 |
++-----------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+| created_at      | 2020-04-30T06:47:08Z                                                                                                                                  |
+| description     | CISCO-SECURITY-GROUP                                                                                                                                  |
+| id              | 1a95b061-81f9-43c6-8da9-d3858ae4a03a                                                                                                                  |
+| name            | CISCO-SECURITY-GROUP                                                                                                                                  |
+| project_id      | 46164c3ea202429badc808148be70a3d                                                                                                                      |
+| revision_number | 2                                                                                                                                                     |
+| rules           | created_at='2020-04-30T06:47:08Z', direction='egress', ethertype='IPv4', id='815b03db-9869-4414-aed7-a82050a2eea6', updated_at='2020-04-30T06:47:08Z' |
+|                 | created_at='2020-04-30T06:47:08Z', direction='egress', ethertype='IPv6', id='c5b64793-e150-4819-b81c-2beaa8c97d0a', updated_at='2020-04-30T06:47:08Z' |
+| updated_at      | 2020-04-30T06:47:08Z                                                                                                                                  |
++-----------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
++-------------------+--------------------------------------+
+| Field             | Value                                |
++-------------------+--------------------------------------+
+| created_at        | 2020-04-30T06:47:12Z                 |
+| description       | None                                 |
+| direction         | ingress                              |
+| ether_type        | IPv4                                 |
+| id                | be31f9e2-3019-4a29-a225-15ef0eeee566 |
+| name              | None                                 |
+| port_range_max    | 22                                   |
+| port_range_min    | 22                                   |
+| project_id        | 46164c3ea202429badc808148be70a3d     |
+| protocol          | tcp                                  |
+| remote_group_id   | None                                 |
+| remote_ip_prefix  | 0.0.0.0/0                            |
+| revision_number   | 0                                    |
+| security_group_id | 1a95b061-81f9-43c6-8da9-d3858ae4a03a |
+| updated_at        | 2020-04-30T06:47:12Z                 |
++-------------------+--------------------------------------+
++-------------------+--------------------------------------+
+| Field             | Value                                |
++-------------------+--------------------------------------+
+| created_at        | 2020-04-30T06:47:18Z                 |
+| description       | None                                 |
+| direction         | ingress                              |
+| ether_type        | IPv4                                 |
+| id                | 685937db-7163-487c-9c48-36c839070e31 |
+| name              | None                                 |
+| port_range_max    | None                                 |
+| port_range_min    | None                                 |
+| project_id        | 46164c3ea202429badc808148be70a3d     |
+| protocol          | icmp                                 |
+| remote_group_id   | None                                 |
+| remote_ip_prefix  | 0.0.0.0/0                            |
+| revision_number   | 0                                    |
+| security_group_id | 1a95b061-81f9-43c6-8da9-d3858ae4a03a |
+| updated_at        | 2020-04-30T06:47:18Z                 |
++-------------------+--------------------------------------+
++-------------------------------------+-----------------------------------------------+
+| Field                               | Value                                         |
++-------------------------------------+-----------------------------------------------+
+| OS-DCF:diskConfig                   | MANUAL                                        |
+| OS-EXT-AZ:availability_zone         |                                               |
+| OS-EXT-SRV-ATTR:host                | None                                          |
+| OS-EXT-SRV-ATTR:hypervisor_hostname | None                                          |
+| OS-EXT-SRV-ATTR:instance_name       |                                               |
+| OS-EXT-STS:power_state              | NOSTATE                                       |
+| OS-EXT-STS:task_state               | scheduling                                    |
+| OS-EXT-STS:vm_state                 | building                                      |
+| OS-SRV-USG:launched_at              | None                                          |
+| OS-SRV-USG:terminated_at            | None                                          |
+| accessIPv4                          |                                               |
+| accessIPv6                          |                                               |
+| addresses                           |                                               |
+| adminPass                           | 6dJuZ8YiJdrb                                  |
+| config_drive                        |                                               |
+| created                             | 2020-04-30T06:47:34Z                          |
+| flavor                              | small (c7aad3cc-7ba4-461f-8678-3936cb56ffd6)  |
+| hostId                              |                                               |
+| id                                  | b3019387-94aa-43e6-91af-f2f62f66c370          |
+| image                               | cirros (29a4a7be-3e0f-4c82-b698-1dcb9809a13a) |
+| key_name                            | None                                          |
+| name                                | CISCO-1                                       |
+| progress                            | 0                                             |
+| project_id                          | 46164c3ea202429badc808148be70a3d              |
+| properties                          |                                               |
+| security_groups                     | name='1a95b061-81f9-43c6-8da9-d3858ae4a03a'   |
+| status                              | BUILD                                         |
+| updated                             | 2020-04-30T06:47:56Z                          |
+| user_id                             | 5f39d34a51e24fe69dd7874223075cd2              |
+| volumes_attached                    |                                               |
++-------------------------------------+-----------------------------------------------+
