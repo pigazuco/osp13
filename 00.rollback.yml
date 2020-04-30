@@ -11,6 +11,13 @@
         - name: rollback
           command: "{{item}}"
           with_items:
-            - virsh snapshot-revert --snapshotname {{rollback}} --domain osp-director
-            - virsh start osp-director
+#            - virsh snapshot-revert --snapshotname {{rollback}} --domain osp-director
+            - virsh snapshot-revert --snapshotname {{rollback}} --domain osp-node1
+            - virsh snapshot-revert --snapshotname {{rollback}} --domain osp-node2
+            - virsh snapshot-revert --snapshotname {{rollback}} --domain osp-node3
+#            - virsh start osp-director
+            - virsh start osp-node1
+            - virsh start osp-node2
+            - virsh start osp-node3
+            
     
