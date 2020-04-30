@@ -1,6 +1,7 @@
 ---
 - name: Upload Cerros Image
   hosts: osp-director
+  remote_user: stack
   gather_facts: no
   tasks:
     - name: Download cirros
